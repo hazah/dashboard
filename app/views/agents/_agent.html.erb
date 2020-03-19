@@ -1,0 +1,4 @@
+<%= link_to [:current, agent], class: "agent btn#{' btn-primary' if current_agents.map(&:agent_id).include?(agent.id)}", remote: true, method: :put, data: { agent_id: agent.id, target: 'agent.agent', action: 'click->agent#toggle' } do %>
+  <%= agent %>
+  <%= render agent.email_address %>
+<% end %>

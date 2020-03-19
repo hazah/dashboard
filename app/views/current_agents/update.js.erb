@@ -1,0 +1,3 @@
+document.querySelectorAll("a[data-agent-id").forEach(a => {
+  a.classList.toggle('btn-primary', <%== "[\"#{CurrentAgent.pluck(:agent_id).join "\", \""}\"]" %>.includes(a.getAttribute("data-agent-id")));
+});

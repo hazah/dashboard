@@ -1,0 +1,98 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/custom-forms";
+@import "bootstrap/scss/input-group";
+@import "bootstrap/scss/buttons";
+
+$size-unit: $font-size-base * $line-height-base;
+$main-size: $size-unit * 3;
+$large-size: $size-unit * 4;
+
+html, body, .main-window > div {
+  height: 100%;
+}
+
+%grid-column {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.context-navigation {
+  height: $large-size;
+  @include make-row(0);
+  > select {
+    height: 100%;
+    @include make-col-ready();
+    @extend %grid-column;
+    -webkit-appearance: none;
+  }
+}
+
+.main-window {
+  height: calc(100% - #{$large-size});
+  @include make-row(0);
+  > div {
+    @include make-col-ready(0);
+  }
+  > div:nth-child(1) {
+    @extend %grid-column;
+    > div {
+      height: 25%;
+      form {
+        width: 100%;
+        height: 100%;
+        button {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  > div:nth-child(2) {
+    @include make-col(6);
+    > div:nth-child(1) {
+      height: calc(100% - #{$main-size});
+      overflow-y: auto;
+      > div {
+        margin-bottom: calc(#{$spacer} * #{$line-height-base} * 2);
+      }
+    }
+    > div:nth-child(2) {
+      height: $main-size;
+    }
+    button {
+      width: 120px;
+      text-align: center;
+      display: inline;
+    }
+  }
+  > div:nth-child(3) {
+    @extend %grid-column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    > a {
+      height: $main-size;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="context-navigation">
+  <%= select_tag :id,
+        options_from_collection_for_select(natural_guilds, :id, :name, current_natural_guild.natural_guild_id),
+          class: "custom-select", id: :current_natural_guild,
+          data: { remote: true, url: current_natural_guild_path, method: :put }
+  %>
+  <%= select_tag :id,
+        options_from_collection_for_select(ingresses, :id, :name, current_ingress.ingress_id),
+          class: "custom-select", id: :current_ingress,
+          data: { remote: true, url: current_ingress_path, method: :put }
+  %>
+</div>
+<div class="main-window">
+  <div class="locations" data-controller="location">
+    <%= render locations %>
+  </div>
+  <div class="conversation">
+    <div class="messages" id="messages">
+      <%= render messages %>
+    </div>
+    <%= form_with model: new_message, data: { controller: :message } do |form| %>
+      <div class="input-group">
+        <%= form.text_area :raw_content,  
+              class: "form-control",
+              data: {
+                target: "message.message",
+                action: "keypress->message#keypress"
+              }
+        %>
+        <div class="input-group-append">
+          <%= form.button :send, 
+                class: "input-group-text",
+                data: {
+                  target: "message.send",
+                  action: "click->message#send",
+                  "disable-with": "sending..."
+                }
+          %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="agents" data-controller="agent" data-agent-last="">
+    <%= render agents %>
+  </div>
+</div>

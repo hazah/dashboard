@@ -1,0 +1,2 @@
+document.querySelectorAll("button[data-location-id]").forEach(e => { e.classList.toggle('btn-primary', false); });
+document.querySelector("button[data-location-id='<%= @current_location.location_id %>']").classList.toggle('btn-primary', true);

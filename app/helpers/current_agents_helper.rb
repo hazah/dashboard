@@ -1,0 +1,2 @@
+module CurrentAgentsHelper
+end

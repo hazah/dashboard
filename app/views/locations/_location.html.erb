@@ -1,0 +1,5 @@
+<div class="location">
+  <%= button_to [:current, :location], remote: true, method: :put, params: { id: location.id }, class: "btn#{' btn-primary' if current_location.location_id == location.id }", data: { location_id: location.id, target: 'location.button', action: 'click->location#toggle' } do %>
+    <%= location %>
+  <% end %>
+</div>

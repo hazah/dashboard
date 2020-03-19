@@ -1,0 +1,2 @@
+class NaturalGuild < ApplicationRecord
+end
