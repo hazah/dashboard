@@ -10,12 +10,7 @@ consumer.subscriptions.create({ channel: "ConversationChannel" }, {
   },
 
   received(data) {
-    var messages = document.getElementById("messages");
-    var template = document.createElement("template");
-    
-    template.innerHTML = data;
-    
-    messages.appendChild(template.content.firstChild);
-    messages.scrollTop = messages.scrollHeight;
+    let messages = document.getElementById("messages");
+    messages.dispatchEvent(new CustomEvent("message:received", { detail: { data: data } }));
   }
 });

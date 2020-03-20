@@ -6,14 +6,13 @@ export default class extends Controller {
   toggle(event) {
     let anyToStart = false;
     let anyActive = false;
-    this.buttonTargets.forEach(el => {
-      anyToStart = anyToStart || el.classList.contains('btn-primary');
-      //el.classList.toggle('btn-primary', el === event.target && !el.classList.contains('btn-primary'));
-      anyActive = anyActive || el === event.target && !el.classList.contains('btn-primary');
-    });
-
     let form = event.target.parentNode;
     let method = form.querySelector("input[name='_method']");
+
+    this.buttonTargets.forEach(el => {
+      anyToStart = anyToStart || el.classList.contains('btn-primary');
+      anyActive = anyActive || el === event.target && !el.classList.contains('btn-primary');
+    });
 
     if (!anyActive) {
       method.value = 'delete';

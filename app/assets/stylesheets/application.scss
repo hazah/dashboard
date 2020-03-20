@@ -37,6 +37,10 @@ html, body, .main-window > div {
   max-width: 100%;
 }
 
+.custom-select {
+  -webkit-appearance: none;
+}
+
 .context-navigation {
   height: $large-size;
   @include make-row(0);
@@ -44,7 +48,6 @@ html, body, .main-window > div {
     height: 100%;
     @include make-col-ready();
     @extend %grid-column;
-    -webkit-appearance: none;
   }
 }
 
@@ -81,7 +84,8 @@ html, body, .main-window > div {
       height: $main-size;
     }
     button {
-      width: 120px;
+      //width: 120px;
+      width: calc(10ch + 20px);
       text-align: center;
       display: inline;
     }

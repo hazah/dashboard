@@ -1,5 +1,5 @@
 import { Controller } from "stimulus";
-
+import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = [ "agent" ];
   
@@ -58,8 +58,7 @@ export default class extends Controller {
       });
       this.sendPost(agent_ids);
 
-      event.stopPropagation();
-      event.preventDefault();
+      Rails.stopEverything(event);
     }
   }
 
@@ -112,27 +111,17 @@ export default class extends Controller {
   }
 
   sendPost(agent_ids) {
-    const csrfToken = document.querySelector("[name='csrf-token']").content;
-    const formData = new FormData();
+    let formData = new FormData();
+    
     agent_ids.forEach(id => {
       formData.append('agent_ids[]', id);
     });
-    fetch('/current_agents', {
-      method: 'POST',
-      headers: {
-        "X-CSRF-Token": csrfToken,
-        "Accept": "text/javascript"
-      },
-      body: formData,
-    }).then(response => {
-      let script = document.createElement("script");
-      
-      script.setAttribute("type", "text/javascript");
-      response.text().then(text => {
-        script.innerText = text;
 
-        document.head.appendChild(script).parentNode.removeChild(script);
-      });
+    Rails.ajax({
+      type: 'POST',
+      url: '/current_agents',
+      data: formData,
+      dataType: 'script'
     });
   }
 }

@@ -15,7 +15,7 @@
     <%= render locations %>
   </div>
   <div class="conversation">
-    <div class="messages" id="messages">
+    <div class="messages" id="messages" data-controller="messages" data-action="message:received->messages#received">
       <%= render messages %>
     </div>
     <%= form_with model: new_message, data: { controller: :message } do |form| %>
