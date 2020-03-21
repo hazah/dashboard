@@ -1,4 +1,4 @@
-<div class="context-navigation">
+<div id="context-navigation">
   <%= select_tag :id,
         options_from_collection_for_select(natural_guilds, :id, :name, current_natural_guild.natural_guild_id),
           class: "custom-select", id: :current_natural_guild,
@@ -10,7 +10,7 @@
           data: { remote: true, url: current_temperament_path, method: :put }
   %>
 </div>
-<div class="main-window">
+<div id="main-window">
   <div class="locations" data-controller="location">
     <%= render locations %>
   </div>
@@ -29,7 +29,7 @@
         %>
         <div class="input-group-append">
           <%= form.button :send, 
-                class: "input-group-text",
+                class: "input-group-text btn btn-primary",
                 data: {
                   target: "message.send",
                   action: "click->message#send",

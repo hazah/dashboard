@@ -1,10 +1,12 @@
 <%= form_with model: @credential, url: [:registration] do |form| %>
-  <%= form.fields_for :email_address do |email_address_form| %>
-    <%= email_address_form.email_field :email %>
-  <% end %>
-  <%= form.fields_for :password_model do |password_model_form| %>
-    <%= password_model_form.password_field :password %>
-    <%= password_model_form.password_field :password_confirmation %>
+  <%= form.fields_for :password_credential_datum do |password_form| %>
+    <%= password_form.fields_for :email_address do |email_address_form| %>
+      <%= email_address_form.email_field :email %>
+    <% end %>
+    <%= password_form.fields_for :password_model do |password_model_form| %>
+      <%= password_model_form.password_field :password %>
+      <%= password_model_form.password_field :password_confirmation %>
+    <% end %>
   <% end %>
   <%= form.fields_for :agent do |agent_form| %>
     <%= agent_form.text_field :name %>

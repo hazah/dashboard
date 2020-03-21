@@ -3,6 +3,7 @@ CurrentLocation.delete_all
 CurrentTemperament.delete_all
 CurrentNaturalGuild.delete_all
 User.delete_all
+PasswordCredentialDatum.delete_all
 Credential.delete_all
 Agent.delete_all
 EmailAddress.delete_all

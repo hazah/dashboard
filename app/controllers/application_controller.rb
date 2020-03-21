@@ -25,7 +25,7 @@ private
       @current_user ||= begin
         user = User.find_by(id: session[:current_user_id], expires_at: Time.now..Float::INFINITY) 
         if user
-          user.update expires_at: 2.minutes.from_now
+          user.update expires_at: auth.session_timeout.minutes.from_now
         else
           session.delete :current_user_id
           cookies.delete :user_id
@@ -53,5 +53,9 @@ private
 
   def no_current_user_session?
     current_user? == false
+  end
+
+  def auth
+    Rails.configuration.auth
   end
 end

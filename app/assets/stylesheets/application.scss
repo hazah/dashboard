@@ -41,17 +41,18 @@ html, body, .main-window > div {
   -webkit-appearance: none;
 }
 
-.context-navigation {
+#context-navigation {
   height: $large-size;
   @include make-row(0);
   > select {
     height: 100%;
     @include make-col-ready();
     @extend %grid-column;
+    border-radius: 0;
   }
 }
 
-.main-window {
+#main-window {
   height: calc(100% - #{$large-size});
   @include make-row(0);
   > div {
@@ -67,6 +68,7 @@ html, body, .main-window > div {
         button {
           width: 100%;
           height: 100%;
+          border-radius: 0;
         }
       }
     }
@@ -83,20 +85,25 @@ html, body, .main-window > div {
     > div:nth-child(2) {
       height: $main-size;
     }
+    textarea {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
     button {
-      //width: 120px;
       width: calc(10ch + 20px);
       text-align: center;
-      display: inline;
+      border-radius: 0;
     }
   }
   > div:nth-child(3) {
     @extend %grid-column;
     overflow-y: auto;
     overflow-x: hidden;
+    max-height: 100%;
     > a {
       height: $main-size;
       width: 100%;
+      border-radius: 0;
     }
   }
 }
