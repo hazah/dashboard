@@ -3,8 +3,8 @@ module ApplicationHelper
     @natural_guilds
   end
 
-  def ingresses
-    @ingresses
+  def temperaments
+    @temperaments
   end
   
   def agents
@@ -23,8 +23,8 @@ module ApplicationHelper
     @locations
   end
 
-  def current_ingress
-    @current_ingress
+  def current_temperament
+    @current_temperament
   end
 
   def current_natural_guild

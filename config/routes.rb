@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   
   resources :current_agents
   resource :current_natural_guild
-  resource :current_ingress
+  resource :current_temperament
   resource :current_location
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CurrentIngressTest < ActiveSupport::TestCase
+class CurrentTemperamentsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

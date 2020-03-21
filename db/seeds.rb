@@ -1,11 +1,11 @@
 CurrentAgent.delete_all
 CurrentLocation.delete_all
-CurrentIngress.delete_all
+CurrentTemperament.delete_all
 CurrentNaturalGuild.delete_all
 Agent.delete_all
 EmailAddress.delete_all
 Location.delete_all
-Ingress.delete_all
+Temperament.delete_all
 NaturalGuild.delete_all
 Message.delete_all
 
@@ -31,7 +31,7 @@ Location.create([
   { name: Faker::Space.planet }
 ])
 
-Ingress.create([
+Temperament.create([
   { name: Faker::Space.moon },
   { name: Faker::Space.moon },
   { name: Faker::Space.moon },

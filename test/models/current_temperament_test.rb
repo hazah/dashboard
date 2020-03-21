@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class IngressTest < ActiveSupport::TestCase
+class CurrentTemperamentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

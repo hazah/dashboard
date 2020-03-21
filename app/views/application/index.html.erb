@@ -5,9 +5,9 @@
           data: { remote: true, url: current_natural_guild_path, method: :put }
   %>
   <%= select_tag :id,
-        options_from_collection_for_select(ingresses, :id, :name, current_ingress.ingress_id),
-          class: "custom-select", id: :current_ingress,
-          data: { remote: true, url: current_ingress_path, method: :put }
+        options_from_collection_for_select(temperaments, :id, :name, current_temperament.temperament_id),
+          class: "custom-select", id: :current_temperament,
+          data: { remote: true, url: current_temperament_path, method: :put }
   %>
 </div>
 <div class="main-window">
@@ -16,7 +16,7 @@
   </div>
   <div class="conversation">
     <div class="messages" id="messages" data-controller="messages" data-action="message:received->messages#received">
-      <%= render messages %>
+      <%= render messages.reverse %>
     </div>
     <%= form_with model: new_message, data: { controller: :message } do |form| %>
       <div class="input-group">
