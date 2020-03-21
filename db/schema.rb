@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_190314) do
+ActiveRecord::Schema.define(version: 2020_03_21_134622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 2020_03_19_190314) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email_address_id"], name: "index_agents_on_email_address_id"
+  end
+
+  create_table "credentials", force: :cascade do |t|
+    t.bigint "email_address_id", null: false
+    t.bigint "password_model_id", null: false
+    t.bigint "agent_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["agent_id"], name: "index_credentials_on_agent_id"
+    t.index ["email_address_id"], name: "index_credentials_on_email_address_id"
+    t.index ["password_model_id"], name: "index_credentials_on_password_model_id"
   end
 
   create_table "current_agents", force: :cascade do |t|
@@ -76,15 +87,33 @@ ActiveRecord::Schema.define(version: 2020_03_19_190314) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "passwords", force: :cascade do |t|
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "temperaments", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.bigint "credential_id", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["credential_id"], name: "index_users_on_credential_id"
+  end
+
   add_foreign_key "agents", "email_addresses"
+  add_foreign_key "credentials", "agents"
+  add_foreign_key "credentials", "email_addresses"
+  add_foreign_key "credentials", "passwords", column: "password_model_id"
   add_foreign_key "current_agents", "agents"
   add_foreign_key "current_locations", "locations"
   add_foreign_key "current_natural_guilds", "natural_guilds"
   add_foreign_key "current_temperaments", "temperaments"
+  add_foreign_key "users", "credentials"
 end

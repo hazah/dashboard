@@ -1,0 +1,14 @@
+<%= form_with model: @credential, url: [:registration] do |form| %>
+  <%= form.fields_for :email_address do |email_address_form| %>
+    <%= email_address_form.email_field :email %>
+  <% end %>
+  <%= form.fields_for :password_model do |password_model_form| %>
+    <%= password_model_form.password_field :password %>
+    <%= password_model_form.password_field :password_confirmation %>
+  <% end %>
+  <%= form.fields_for :agent do |agent_form| %>
+    <%= agent_form.text_field :name %>
+  <% end %>
+  <%= form.button type: :submit %>
+<% end %>
+<%= link_to 'Log in', [:new, :session] %>

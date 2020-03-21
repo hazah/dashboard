@@ -1,0 +1,6 @@
+<%= form_with model: @new_credential, url: [:session] do |form| %>
+  <%= form.email_field :email %>
+  <%= form.password_field :password %>
+  <%= form.button type: :submit %>
+<% end %>
+<%= link_to 'Register', [:new, :registration] %>
