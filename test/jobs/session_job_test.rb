@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SessionStartedJobTest < ActiveJob::TestCase
+class SessionJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

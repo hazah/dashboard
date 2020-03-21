@@ -1,6 +1,10 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "conversation"
+    if current_user
+      stream_from "conversation"
+    else
+      reject
+    end
   end
 
   def unsubscribed

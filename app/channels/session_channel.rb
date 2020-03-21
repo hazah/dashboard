@@ -1,6 +1,10 @@
 class SessionChannel < ApplicationCable::Channel
   def subscribed
-    stream_for current_user
+    if current_user
+      stream_for current_user
+    else
+      stream_from "unauthenticated"
+    end
   end
 
   def unsubscribed

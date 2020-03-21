@@ -9,10 +9,9 @@ module ApplicationCable
   private
     
     def find_verified_user
-      if verified_user = User.find_by(id: cookies.encrypted[:user_id], expires_at: Time.now..Float::INFINITY)
-        verified_user
-      else
-        reject_unauthorized_connection
+      if user = User.find_by(id: cookies.encrypted[:user_id], expires_at: Time.now..Float::INFINITY)
+        user.update expires_at: 2.minutes.from_now
+        user
       end
     end
   end

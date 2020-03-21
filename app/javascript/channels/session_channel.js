@@ -11,10 +11,10 @@ consumer.subscriptions.create("SessionChannel", {
   },
 
   received(data) {
-    console.log("session ended");
     consumer.disconnect();
     consumer.connect();
-    
-    Turbolinks.visit(data.url);
+    if (data.url) {
+      Turbolinks.visit(data.url);
+    }
   }
 });
