@@ -30,13 +30,6 @@ ActiveRecord::Schema.define(version: 2020_03_19_190314) do
     t.index ["agent_id"], name: "index_current_agents_on_agent_id"
   end
 
-  create_table "current_ingresses", force: :cascade do |t|
-    t.bigint "ingress_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["ingress_id"], name: "index_current_ingresses_on_ingress_id"
-  end
-
   create_table "current_locations", force: :cascade do |t|
     t.bigint "location_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -51,17 +44,18 @@ ActiveRecord::Schema.define(version: 2020_03_19_190314) do
     t.index ["natural_guild_id"], name: "index_current_natural_guilds_on_natural_guild_id"
   end
 
+  create_table "current_temperaments", force: :cascade do |t|
+    t.bigint "temperament_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["temperament_id"], name: "index_current_temperaments_on_temperament_id"
+  end
+
   create_table "email_addresses", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_email_addresses_on_email", unique: true
-  end
-
-  create_table "ingresses", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -82,9 +76,15 @@ ActiveRecord::Schema.define(version: 2020_03_19_190314) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "temperaments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "agents", "email_addresses"
   add_foreign_key "current_agents", "agents"
-  add_foreign_key "current_ingresses", "ingresses"
   add_foreign_key "current_locations", "locations"
   add_foreign_key "current_natural_guilds", "natural_guilds"
+  add_foreign_key "current_temperaments", "temperaments"
 end
