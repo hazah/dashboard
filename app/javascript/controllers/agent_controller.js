@@ -25,7 +25,7 @@ export default class extends Controller {
   }
 
   ctrlKeyPressed(el) {
-    if (!el.classList.contains('btn-primary')) {
+    if (!el.classList.contains('btn-secondary')) {
       this.toPost(el);
     } else {
       this.toDelete(el);
@@ -66,13 +66,13 @@ export default class extends Controller {
     let toStartCount = 0;
 
     this.agentTargets.forEach(el => {
-      if (el.classList.contains('btn-primary')) {
+      if (el.classList.contains('btn-secondary')) {
         ++toStartCount;
       }
     });
 
     if (toStartCount == 1) {
-      if (event.target.classList.contains('btn-primary')) {
+      if (event.target.classList.contains('btn-secondary')) {
         this.toDelete(event.target);
         this.clearLast();
       } else {
@@ -81,7 +81,7 @@ export default class extends Controller {
     } else {
       this.toPost(event.target);
     }
-    if (toStartCount != 1 || !event.target.classList.contains('btn-primary')) {
+    if (toStartCount != 1 || !event.target.classList.contains('btn-secondary')) {
       if (event.shiftKey && this.last.length == 0) {
         this.last = event.target.getAttribute('data-agent-id');
       }

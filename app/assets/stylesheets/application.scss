@@ -44,11 +44,24 @@ html, body, .main-window > div {
 #context-navigation {
   height: $large-size;
   @include make-row(0);
-  > select {
+  > select, button {
     height: 100%;
     @include make-col-ready();
     @extend %grid-column;
     border-radius: 0;
+  }
+  > div {
+    @include make-col(1);
+    > ul {
+      position: absolute;
+      right: 0;
+      top: $large-size;
+      width: calc(576px / 2);
+      border: 1px solid;
+      background-color: $light;
+      z-index: 999;
+      display: none;
+    }
   }
 }
 
@@ -104,6 +117,38 @@ html, body, .main-window > div {
       height: $main-size;
       width: 100%;
       border-radius: 0;
+    }
+  }
+}
+
+#login {
+  height: 100%;
+  display: flex;
+  width: 576px;
+  margin-left: auto;
+  margin-right: auto;
+  > div {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    > p {
+      text-align: center;
+    }
+    > p:nth-child(2) {
+      margin-top: 1rem;
+    }
+    > form > button, > form > div > input, > form > div > label, > p > a {
+      width: 50%;
+    }
+    > p > a {
+      color: $light;
+      background-color: $gray-800;
+      border-color: $gray-800;
+    }
+    > form > button, > form > div > input, > form > div > label {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
   }
 }

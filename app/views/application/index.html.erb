@@ -9,6 +9,12 @@
           class: "custom-select", id: :current_temperament,
           data: { remote: true, url: current_temperament_path, method: :put }
   %>
+  <div data-controller="profile">
+    <%= button_tag "profile", class: "btn btn-secondary", data: { action: "click->profile#menu" } %>
+    <ul data-target="profile.menu">
+      <li><%= link_to 'Log out', :session, method: :delete, remote: true %></li>
+    </ul>
+  </div>
 </div>
 <div id="main-window">
   <div class="locations" data-controller="location">
@@ -29,11 +35,11 @@
         %>
         <div class="input-group-append">
           <%= form.button :send, 
-                class: "input-group-text btn btn-primary",
+                class: "input-group-text btn btn-secondary",
                 data: {
                   target: "message.send",
                   action: "click->message#send",
-                  "disable-with": "sending..."
+                  disable_with: "sending..."
                 }
           %>
         </div>

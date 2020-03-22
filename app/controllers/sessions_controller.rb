@@ -18,10 +18,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.update expires_at: Time.now
+    current_user = nil
     session.delete :current_user_id
     cookies.delete :user_id
-    @current_user.update expires_at: Time.now
-    @current_user = nil
     redirect_to [:new, :session]
   end
 

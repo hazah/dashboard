@@ -10,8 +10,8 @@ export default class extends Controller {
     let method = form.querySelector("input[name='_method']");
 
     this.buttonTargets.forEach(el => {
-      anyToStart = anyToStart || el.classList.contains('btn-primary');
-      anyActive = anyActive || el === event.target && !el.classList.contains('btn-primary');
+      anyToStart = anyToStart || el.classList.contains('btn-secondary');
+      anyActive = anyActive || el === event.target && !el.classList.contains('btn-secondary');
     });
 
     if (!anyActive) {
