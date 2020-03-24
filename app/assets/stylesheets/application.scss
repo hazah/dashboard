@@ -113,6 +113,7 @@ html, body, .main-window > div {
     textarea {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+      resize: none;
     }
     button {
       width: calc(10ch + 20px);

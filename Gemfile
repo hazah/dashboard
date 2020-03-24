@@ -42,6 +42,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'rack-livereload', '~> 0.3'
+
+  gem 'guard'
+  gem 'guard-bundler',    require: false
+  gem 'guard-rails',      require: false
+  gem 'guard-livereload', require: false
+  gem 'guard-webpack',    require: false
 end
 
 group :test do
