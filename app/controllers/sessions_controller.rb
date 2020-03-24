@@ -1,10 +1,13 @@
 class SessionsController < ApplicationController
+  before_action if: :current_user?, except: :destroy do
+    head :no_content
+  end
+
   def new
     @credential = PasswordCredential.new
   end
   
   def create
-    logger.debug params
     @email = Email.find_by email: credential_params[:basic_profile_attributes][:detail_attributes][:email_model_attributes][:email]
     @detail = BasicProfileDetail.find_by email_model: @email if @email
     

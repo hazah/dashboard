@@ -1,4 +1,8 @@
 class RegistrationsController < ApplicationController
+  before_action if: :current_user?, only: :new do
+    head :no_content
+  end
+
   def new
     @credential = PasswordCredential.new
   end
@@ -11,6 +15,9 @@ class RegistrationsController < ApplicationController
       session[:current_user_id] = user.id
       redirect_to root_path
     end
+  end
+
+  def update
   end
 
   def destroy
