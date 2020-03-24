@@ -32,7 +32,7 @@
     </div>
     <%= form_with model: new_message, data: { controller: :message } do |form| %>
       <div class="input-group">
-        <%= form.text_area :raw_content,  
+        <%= form.rich_text_area :raw_content,  
               class: "form-control",
               data: {
                 target: "message.message",

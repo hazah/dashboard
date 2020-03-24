@@ -10,6 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require actiontext
  *= require_self
  */
 
@@ -91,7 +92,7 @@ html, body, .main-window > div {
     border-right: 1px solid #ced4da;
     border-left: 1px solid #ced4da;
     > div:nth-child(1) {
-      height: calc(100% - #{$main-size});
+      height: calc(100% - #{$main-size} - 50px);
       overflow-y: auto;
       > div {
         &:first-child {
@@ -115,7 +116,7 @@ html, body, .main-window > div {
       border-bottom-left-radius: 0;
       resize: none;
     }
-    button {
+    form > div > div > button {
       width: calc(10ch + 20px);
       text-align: center;
       border-radius: 0;

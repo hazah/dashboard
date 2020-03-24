@@ -38,9 +38,4 @@ module ApplicationHelper
   def current_location
     @current_location
   end
-
-  def simple_format model
-    model = model.to_s unless model.is_a? String
-    super
-  end
 end
