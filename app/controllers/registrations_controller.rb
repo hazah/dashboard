@@ -1,6 +1,6 @@
 class RegistrationsController < ApplicationController
   before_action if: :current_user?, only: :new do
-    head :no_content
+    redirect_to root_path
   end
 
   def new

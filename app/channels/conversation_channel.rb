@@ -3,7 +3,7 @@ class ConversationChannel < ApplicationCable::Channel
     if current_user
       stream_from "conversation"
     else
-      reject
+      stream_from "nothing"
     end
   end
 

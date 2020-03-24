@@ -88,14 +88,26 @@ html, body, .main-window > div {
   }
   > div:nth-child(2) {
     @include make-col(6);
+    border-right: 1px solid #ced4da;
+    border-left: 1px solid #ced4da;
     > div:nth-child(1) {
       height: calc(100% - #{$main-size});
       overflow-y: auto;
       > div {
-        margin-bottom: calc(#{$spacer} * #{$line-height-base} * 2);
+        &:first-child {
+          margin-top: calc(#{$spacer} * #{$line-height-base});
+        }
+        margin-bottom: calc(#{$spacer} * #{$line-height-base});
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        min-height: calc(#{$main-size});
       }
     }
-    > div:nth-child(2) {
+    > div:nth-child(2), > form {
+      margin-left: 20px;
+      margin-right: 20px;
       height: $main-size;
     }
     textarea {
@@ -136,6 +148,9 @@ html, body, .main-window > div {
     }
     > p:nth-child(2) {
       margin-top: 1rem;
+    }
+    > form > button, > p > a, > form > div > input {
+      border-radius: 0;
     }
     > form > button, > form > div > input, > form > div > label, > p > a {
       width: 50%;

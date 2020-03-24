@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   before_action if: :current_user?, except: :destroy do
-    head :no_content
+    redirect_to root_path
   end
 
   def new
