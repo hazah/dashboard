@@ -1,0 +1,2 @@
+module CurrentConcernAreasHelper
+end

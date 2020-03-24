@@ -1,17 +1,17 @@
 <div id="context-navigation">
   <%= select_tag :id,
-        options_from_collection_for_select(natural_guilds, :id, :name, current_natural_guild.natural_guild_id),
+        options_from_collection_for_select(natural_guilds, :id, :name, current_natural_guild&.natural_guild_id),
           class: "custom-select", id: :current_natural_guild,
           data: { remote: true, url: current_natural_guild_path, method: :put }
   %>
   <%= select_tag :id,
-        options_from_collection_for_select(temperaments, :id, :name, current_temperament.temperament_id),
-          class: "custom-select", id: :current_temperament,
-          data: { remote: true, url: current_temperament_path, method: :put }
+        options_from_collection_for_select(concern_areas, :id, :name, current_concern_area&.concern_area_id),
+          class: "custom-select", id: :current_concern_areas,
+          data: { remote: true, url: current_concern_area_path, method: :put }
   %>
-  <div data-controller="profile">
-    <%= button_tag "profile", class: "btn btn-secondary", data: { action: "click->profile#menu" } %>
-    <ul data-target="profile.menu">
+  <div data-controller="current-profile">
+    <%= button_tag "profile", class: "btn btn-secondary", data: { action: "click->current-profile#menu" } %>
+    <ul data-target="current-profile.menu">
       <li><%= link_to 'Log out', :session, method: :delete, remote: true %></li>
     </ul>
   </div>
@@ -46,7 +46,7 @@
       </div>
     <% end %>
   </div>
-  <div class="agents" data-controller="agent" data-agent-last="">
-    <%= render agents %>
+  <div class="profiles" data-controller="profile" data-profile-last>
+    <%= render profiles %>
   </div>
 </div>

@@ -3,12 +3,12 @@ module ApplicationHelper
     @natural_guilds
   end
 
-  def temperaments
-    @temperaments
+  def concern_areas
+    @concern_areas
   end
   
-  def agents
-    @agents
+  def profiles
+    @profiles
   end
 
   def messages
@@ -23,16 +23,16 @@ module ApplicationHelper
     @locations
   end
 
-  def current_temperament
-    @current_temperament
+  def current_concern_area
+    @current_concern_area
   end
 
   def current_natural_guild
     @current_natural_guild
   end
 
-  def current_agents
-    @current_agents
+  def current_profiles
+    @current_profiles
   end
 
   def current_location

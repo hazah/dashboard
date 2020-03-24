@@ -1,25 +1,12 @@
 class RegistrationsController < ApplicationController
   def new
-    @credential = PasswordCredential.new agent: Agent.new
-    @credential.password_credential_datum = PasswordCredentialDatum.new email_address: EmailAddress.new,
-                                                                        password_model: Password.new
+    @credential = PasswordCredential.new
   end
   
   def create
-    logger.debug credential_params
-    ApplicationRecord.transaction do
-      email_address = EmailAddress.create(credential_params[:password_credential_datum_attributes][:email_address_attributes])
-      agent = Agent.create(name: credential_params[:agent_attributes][:name], email_address: email_address)
-      
-      @credential = PasswordCredential.create agent: agent
-      
-      PasswordCredentialDatum.create  password_credential: @credential,
-                                      email_address: email_address,
-                                      password_model: Password.create(credential_params[:password_credential_datum_attributes][:password_model_attributes])
-                                      
+    @credential = PasswordCredential.new credential_params
     
-    end
-    if @credential.password_credential_datum.valid?
+    if @credential.save
       user = User.create credential: @credential, expires_at: auth.session_timeout.minutes.from_now
       session[:current_user_id] = user.id
       redirect_to root_path
@@ -31,13 +18,36 @@ class RegistrationsController < ApplicationController
   end
 
 private
-
+  
   def credential_params
-    params.require(:password_credential).
-            permit  password_credential_datum_attributes: [
-                      email_address_attributes: [:email], 
-                      password_model_attributes: [:password, :password_confirmation], 
-                    ],
-                    agent_attributes: [:name]
+    params.require(:password_credential).permit basic_profile_attributes: basic_profile_attributes, datum_attributes: datum_attributes
+  end
+
+  def basic_profile_attributes
+    [:type, { detail_attributes: detail_attributes, agent_attributes: agent_attributes }]
+  end
+
+  def detail_attributes
+    { profile_attributes: [:id], email_model_attributes: email_model_attributes, name_model_attributes: name_model_attributes }
+  end
+
+  def email_model_attributes
+    [:email]
+  end
+
+  def name_model_attributes
+    [:name]
+  end
+
+  def agent_attributes
+    [:id]
+  end
+
+  def datum_attributes
+    { password_model_attributes: password_model_attributes }
+  end
+
+  def password_model_attributes
+    [:password, :password_confirmation]
   end
 end

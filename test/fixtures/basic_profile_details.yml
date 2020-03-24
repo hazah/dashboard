@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  basic_profile: one
+  agent: one
+  name: one
+  email: one
+
+two:
+  basic_profile: two
+  agent: two
+  name: two
+  email: two

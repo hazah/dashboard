@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  after_create_commit do
-    SessionJob.perform_later self
-  end
-
   belongs_to :credential
+
+  after_create_commit { SessionJob.perform_later self }
 end
