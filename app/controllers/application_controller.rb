@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action if: :current_user? do
     @profile = current_user.credential.basic_profile
     @current_natural_guild = CurrentNaturalGuild.find_by(profile_id: @profile.id) || CurrentNaturalGuild.create(natural_guild: NaturalGuild.first, profile_id: @profile.id)
-    @current_concern_area = CurrentConcernArea.find_by(profile_id: @profile.id) || CurrentConcernArea.create(concern_area: ConcernArea.first, profile_id: @profile.id)
+    @current_concern_area = CurrentConcernArea.find_by(profile_id: @profile.id, natural_guild: @current_natural_guild.natural_guild) || CurrentConcernArea.create(concern_area: @current_natural_guild.natural_guild.concern_areas.first, profile_id: @profile.id, natural_guild: @current_natural_guild.natural_guild)
     @current_location = CurrentLocation.find_by(profile_id: @profile.id) || CurrentLocation.new(profile_id: @profile.id)
     @current_profiles = CurrentBasicProfile.where(profile_id: @profile.id)
   end

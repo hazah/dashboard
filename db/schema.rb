@@ -60,9 +60,11 @@ ActiveRecord::Schema.define(version: 2020_03_23_224816) do
   create_table "current_concern_areas", force: :cascade do |t|
     t.bigint "concern_area_id", null: false
     t.bigint "profile_id", null: false
+    t.bigint "natural_guild_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["concern_area_id"], name: "index_current_concern_areas_on_concern_area_id"
+    t.index ["natural_guild_id"], name: "index_current_concern_areas_on_natural_guild_id"
     t.index ["profile_id"], name: "index_current_concern_areas_on_profile_id"
   end
 
@@ -155,6 +157,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_224816) do
   add_foreign_key "current_basic_profiles", "profiles"
   add_foreign_key "current_basic_profiles", "profiles", column: "basic_profile_id"
   add_foreign_key "current_concern_areas", "concern_areas"
+  add_foreign_key "current_concern_areas", "natural_guilds"
   add_foreign_key "current_concern_areas", "profiles"
   add_foreign_key "current_locations", "locations"
   add_foreign_key "current_locations", "profiles"
