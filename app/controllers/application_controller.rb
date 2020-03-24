@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def index
     @natural_guilds = NaturalGuild.all
     @concern_areas  = @current_natural_guild.natural_guild.concern_areas
-    @profiles       = BasicProfile.includes(detail: [:name_model, :email_model]).all
+    @profiles       = BasicProfile.includes(detail: [:name_model, :email_model]).where.not(id: @profile.id)
     @locations      = Location.all
     
     @messages     = Message.order(created_at: :desc).limit(30).all
