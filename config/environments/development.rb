@@ -72,6 +72,6 @@ Rails.application.configure do
     config.web_console.permissions ||= []
     config.web_console.permissions << ip
   end
-  config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload,
-    source: :vendored
+  # config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload,
+  #   source: :vendored
 end

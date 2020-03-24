@@ -12,6 +12,9 @@ module ApplicationCable
       if user = User.find_by(id: cookies.encrypted[:user_id], expires_at: Time.now..Float::INFINITY)
         user.update expires_at: auth.session_timeout.minutes.from_now
         user
+      else
+        cookies.delete :user_id
+        nil
       end
     end
 

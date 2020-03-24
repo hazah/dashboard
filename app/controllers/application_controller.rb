@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
     @profiles       = BasicProfile.includes(detail: [:name_model, :email_model]).all
     @locations      = Location.all
     
-    @messages       = Message.order(created_at: :desc).limit(30).all
-    @new_message = Message.new
+    @messages     = Message.order(created_at: :desc).limit(30).all
+    @new_message  = Message.new
   end
 
 private

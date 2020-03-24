@@ -24,11 +24,22 @@ export default class extends Controller {
     return this.data.get("last");
   }
 
-  ctrlKeyPressed(el) {
-    if (!el.classList.contains('btn-secondary')) {
-      this.toPost(el);
+  ctrlKeyPressed(elem) {
+    if (!elem.classList.contains('btn-secondary')) {
+      let toStartCount = 0;
+
+      this.profileTargets.forEach(el => {
+        if (el.classList.contains('btn-secondary')) {
+          ++toStartCount;
+        }
+      });
+      if (toStartCount == 0) {
+        this.toPost(elem);
+      } else {
+        this.toPut(elem);
+      }
     } else {
-      this.toDelete(el);
+      this.toDelete(elem);
       this.clearLast();
     }
   }
