@@ -1,4 +1,4 @@
-<div id="context-navigation">
+<div id="context-navigation" >
   <%= select_tag :id,
         options_from_collection_for_select(natural_guilds, :id, :name, current_natural_guild&.natural_guild_id),
           class: "custom-select", id: :current_natural_guild,
@@ -7,7 +7,13 @@
   <%= select_tag :id,
         options_from_collection_for_select(concern_areas, :id, :name, current_concern_area&.concern_area_id),
           class: "custom-select", id: :current_concern_areas,
-          data: { remote: true, url: current_concern_area_path, method: :put }
+          data: { 
+            remote: true,
+            url: current_concern_area_path,
+            method: :put,
+            controller: "concern-area",
+            action: "natural_guild:changed->concern-area#update"
+          }
   %>
   <div data-controller="current-profile">
     <%= button_tag "profile", class: "btn btn-secondary", data: { action: "click->current-profile#menu" } %>
