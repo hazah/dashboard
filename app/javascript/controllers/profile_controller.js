@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 export default class extends Controller {
@@ -25,22 +26,30 @@ export default class extends Controller {
   }
 
   ctrlKeyPressed(elem) {
-    if (!elem.classList.contains('btn-secondary')) {
+    if (elem.classList.contains('btn-secondary')) {
+      this.toDelete(elem);
+      this.clearLast();
+    } else {
       let toStartCount = 0;
+      let basic_profile_ids = [];
 
       this.profileTargets.forEach(el => {
         if (el.classList.contains('btn-secondary')) {
           ++toStartCount;
+          
+          const current = el.getAttribute('data-basic-profile-id').trim();
+          basic_profile_ids.push(current);
         }
       });
       if (toStartCount == 0) {
         this.toPost(elem);
       } else {
-        this.toPut(elem);
+        const current = elem.getAttribute('data-basic-profile-id').trim();
+        basic_profile_ids.push(current);
+
+        this.sendPost(basic_profile_ids);
+        Rails.stopEverything(event);
       }
-    } else {
-      this.toDelete(elem);
-      this.clearLast();
     }
   }
 

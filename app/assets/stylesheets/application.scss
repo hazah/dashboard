@@ -124,13 +124,20 @@ html, body, .main-window > div {
   }
   > div:nth-child(3) {
     @extend %grid-column;
-    overflow-y: auto;
-    overflow-x: hidden;
     max-height: 100%;
-    > a {
-      height: $main-size;
-      width: 100%;
-      border-radius: 0;
+    > div:first-child {
+      min-height: calc(#{$large-size});
+      border-bottom: 1px solid #ced4da;
+    }
+    > div:last-child {
+      height: calc(100% - #{$large-size});
+      overflow-y: auto;
+      overflow-x: none;
+      > a {
+        height: $main-size;
+        width: 100%;
+        border-radius: 0;
+      }
     }
   }
 }
