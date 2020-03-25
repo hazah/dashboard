@@ -91,8 +91,10 @@ html, body, .main-window > div {
     @include make-col(6);
     border-right: 1px solid #ced4da;
     border-left: 1px solid #ced4da;
+    max-height: 100%;
     > div:nth-child(1) {
-      height: calc(100% - #{$main-size} - 50px);
+      height: calc(100% - 120px);
+      max-height: calc(100% - 120px);
       overflow-y: auto;
       > div {
         &:first-child {
@@ -109,7 +111,7 @@ html, body, .main-window > div {
     > div:nth-child(2), > form {
       margin-left: 20px;
       margin-right: 20px;
-      height: $main-size;
+      height: 120px;
     }
     textarea {
       border-top-left-radius: 0;
