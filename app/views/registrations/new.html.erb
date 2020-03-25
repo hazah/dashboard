@@ -2,9 +2,6 @@
   <div>
     <%= form_with model: @credential, url: [:registration] do |credential_form| %>
       <%= credential_form.fields_for :basic_profile, @credential.build_basic_profile do |profile_form|%>
-        <%= profile_form.fields_for :agent, @credential.basic_profile.build_agent do |agent_form| %>
-          <%= agent_form.hidden_field :id %>
-        <% end %>
         <%= profile_form.fields_for :detail, @credential.basic_profile.build_detail do |detail_form| %>
           <%= detail_form.fields_for :email_model, @credential.basic_profile.detail.build_email_model do |email_form| %>
             <div class="form-group">

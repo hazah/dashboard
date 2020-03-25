@@ -6,9 +6,18 @@ class RegistrationsController < ApplicationController
   def new
     @credential = PasswordCredential.new
   end
-  
+
   def create
-    @credential = PasswordCredential.new credential_params
+    @credential = PasswordCredential.new
+    @credential.build_basic_profile.tap do |profile|
+      profile.build_human.build_detail
+      profile.build_detail.tap do |detail|
+        detail.build_name_model
+        detail.build_email_model
+      end
+    end
+    @credential.build_datum.build_password_model
+    @credential.attributes = credential_params
     
     if @credential.save
       user = User.create credential: @credential, expires_at: auth.session_timeout.minutes.from_now
@@ -31,10 +40,10 @@ private
   end
 
   def basic_profile_attributes
-    [:type, { detail_attributes: detail_attributes, agent_attributes: agent_attributes }]
+    [:type, { detail_attributes: profile_detail_attributes, human_attributes: human_attributes }]
   end
 
-  def detail_attributes
+  def profile_detail_attributes
     { profile_attributes: [:id], email_model_attributes: email_model_attributes, name_model_attributes: name_model_attributes }
   end
 
@@ -46,7 +55,11 @@ private
     [:name]
   end
 
-  def agent_attributes
+  def human_attributes
+    { detail_attributes: human_detail_attributes }
+  end
+
+  def human_detail_attributes
     [:id]
   end
 

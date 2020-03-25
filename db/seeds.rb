@@ -13,9 +13,11 @@ User.delete_all
 PasswordCredentialDatum.delete_all
 Credential.delete_all
 BasicProfileDetail.delete_all
+Profile.delete_all
 Password.delete_all
 Email.delete_all
 Name.delete_all
+HumanDetail.delete_all
 Agent.delete_all
 
 natural_guilds = {
@@ -64,4 +66,4 @@ Location.create locations.map{ |l| { name: l } }
 
 profile_data = (1..12).map{|v| [ Faker::Company.name, Faker::Internet.email ]}
 profile_data = profile_data.map{|k, v| { name_model_attributes: { name: k }, email_model_attributes: { email: v } } }
-BasicProfile.create profile_data.map{|v| { detail_attributes: v, agent_attributes: { id: ""}}}
+BasicProfile.create profile_data.map{|v| { detail_attributes: v, human_attributes: { detail_attributes: { id: "" }}}}
