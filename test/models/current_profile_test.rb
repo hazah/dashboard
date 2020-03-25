@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CurrentBasicProfileTest < ActiveSupport::TestCase
+class CurrentProfileTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,0 +1,2 @@
+module CurrentProfilesHelper
+end

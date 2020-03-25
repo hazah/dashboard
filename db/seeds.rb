@@ -1,6 +1,6 @@
 Message.delete_all
 
-CurrentBasicProfile.delete_all
+CurrentProfile.delete_all
 CurrentLocation.delete_all
 CurrentConcernArea.delete_all
 CurrentNaturalGuild.delete_all

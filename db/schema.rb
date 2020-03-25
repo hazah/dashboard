@@ -80,15 +80,6 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
     t.index ["profile_id"], name: "index_credentials_on_profile_id"
   end
 
-  create_table "current_basic_profiles", force: :cascade do |t|
-    t.bigint "basic_profile_id", null: false
-    t.bigint "profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["basic_profile_id"], name: "index_current_basic_profiles_on_basic_profile_id"
-    t.index ["profile_id"], name: "index_current_basic_profiles_on_profile_id"
-  end
-
   create_table "current_concern_areas", force: :cascade do |t|
     t.bigint "concern_area_id", null: false
     t.bigint "profile_id", null: false
@@ -116,6 +107,15 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["natural_guild_id"], name: "index_current_natural_guilds_on_natural_guild_id"
     t.index ["profile_id"], name: "index_current_natural_guilds_on_profile_id"
+  end
+
+  create_table "current_profiles", force: :cascade do |t|
+    t.bigint "current_profile_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["current_profile_id"], name: "index_current_profiles_on_current_profile_id"
+    t.index ["profile_id"], name: "index_current_profiles_on_profile_id"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -193,8 +193,6 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
   add_foreign_key "basic_profile_details", "profiles", column: "basic_profile_id"
   add_foreign_key "concern_areas", "natural_guilds"
   add_foreign_key "credentials", "profiles"
-  add_foreign_key "current_basic_profiles", "profiles"
-  add_foreign_key "current_basic_profiles", "profiles", column: "basic_profile_id"
   add_foreign_key "current_concern_areas", "concern_areas"
   add_foreign_key "current_concern_areas", "natural_guilds"
   add_foreign_key "current_concern_areas", "profiles"
@@ -202,6 +200,8 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
   add_foreign_key "current_locations", "profiles"
   add_foreign_key "current_natural_guilds", "natural_guilds"
   add_foreign_key "current_natural_guilds", "profiles"
+  add_foreign_key "current_profiles", "profiles"
+  add_foreign_key "current_profiles", "profiles", column: "current_profile_id"
   add_foreign_key "human_details", "agents", column: "human_id"
   add_foreign_key "password_credential_data", "credentials", column: "password_credential_id"
   add_foreign_key "password_credential_data", "passwords", column: "password_model_id"

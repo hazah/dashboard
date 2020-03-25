@@ -6,7 +6,7 @@ export default class extends Controller {
   
   toggle(event) {
     if (!event.shiftKey) {
-      this.last = event.target.getAttribute('data-basic-profile-id');
+      this.last = event.target.getAttribute('data-profile-id');
     }
     if (event.ctrlKey) {
       this.ctrlKeyPressed(event.target);
@@ -31,52 +31,52 @@ export default class extends Controller {
       this.clearLast();
     } else {
       let toStartCount = 0;
-      let basic_profile_ids = [];
+      let profile_ids = [];
 
       this.profileTargets.forEach(el => {
         if (el.classList.contains('btn-secondary')) {
           ++toStartCount;
           
-          const current = el.getAttribute('data-basic-profile-id').trim();
-          basic_profile_ids.push(current);
+          const current = el.getAttribute('data-profile-id').trim();
+          profile_ids.push(current);
         }
       });
       if (toStartCount == 0) {
         this.toPost(elem);
       } else {
-        const current = elem.getAttribute('data-basic-profile-id').trim();
-        basic_profile_ids.push(current);
+        const current = elem.getAttribute('data-profile-id').trim();
+        profile_ids.push(current);
 
-        this.sendPost(basic_profile_ids);
+        this.sendPost(profile_ids);
         Rails.stopEverything(event);
       }
     }
   }
 
   shiftKeyPressedWithLastSet(event) {
-    if (event.target.getAttribute('data-basic-profile-id').trim() == this.last) {
+    if (event.target.getAttribute('data-profile-id').trim() == this.last) {
       this.toDelete(event.target);
       this.clearLast();
     } else {
       let lastFound = false;
       let targetFound = false;
 
-      let basic_profile_ids = [];
+      let profile_ids = [];
       
       this.profileTargets.forEach(el => {
-        const current = el.getAttribute('data-basic-profile-id').trim();
+        const current = el.getAttribute('data-profile-id').trim();
 
         if (this.last == current) {
           lastFound = true;
-          basic_profile_ids.push(current);
+          profile_ids.push(current);
         } else if (el === event.target) {
           targetFound = true;
-          basic_profile_ids.push(current);
+          profile_ids.push(current);
         } else if (lastFound && !targetFound || targetFound && !lastFound) {
-          basic_profile_ids.push(current);
+          profile_ids.push(current);
         }
       });
-      this.sendPost(basic_profile_ids);
+      this.sendPost(profile_ids);
 
       Rails.stopEverything(event);
     }
@@ -103,7 +103,7 @@ export default class extends Controller {
     }
     if (toStartCount != 1 || !event.target.classList.contains('btn-secondary')) {
       if (event.shiftKey && this.last.length == 0) {
-        this.last = event.target.getAttribute('data-basic-profile-id');
+        this.last = event.target.getAttribute('data-profile-id');
       }
     }
   }
@@ -113,33 +113,33 @@ export default class extends Controller {
   }
 
   toPut(el) {
-    el.setAttribute('href', '/current_basic_profiles/' + el.getAttribute('data-basic-profile-id'));
+    el.setAttribute('href', '/current_profiles/' + el.getAttribute('data-profile-id'));
     el.setAttribute('data-method', 'put');
     el.removeAttribute('data-params');
   }
 
   toPost(el) {
-    el.setAttribute('href', '/current_basic_profiles');
+    el.setAttribute('href', '/current_profiles');
     el.setAttribute('data-method', 'post');
-    el.setAttribute('data-params', 'basic_profile_id=' + el.getAttribute('data-basic-profile-id'));
+    el.setAttribute('data-params', 'profile_id=' + el.getAttribute('data-profile-id'));
   }
 
   toDelete(el) {
-    el.setAttribute('href', '/current_basic_profiles/' + el.getAttribute('data-basic-profile-id'));
+    el.setAttribute('href', '/current_profiles/' + el.getAttribute('data-profile-id'));
     el.setAttribute('data-method', 'delete');
     el.removeAttribute('data-params');
   }
 
-  sendPost(basic_profile_ids) {
+  sendPost(profile_ids) {
     let formData = new FormData();
     
-    basic_profile_ids.forEach(id => {
-      formData.append('basic_profile_ids[]', id);
+    profile_ids.forEach(id => {
+      formData.append('profile_ids[]', id);
     });
 
     Rails.ajax({
       type: 'POST',
-      url: '/current_basic_profiles',
+      url: '/current_profiles',
       data: formData,
       dataType: 'script'
     });
