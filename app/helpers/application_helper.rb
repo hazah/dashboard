@@ -85,12 +85,14 @@ module ApplicationHelper
 
   def message_text_area(form)
     content_tag :div, class: "input-group" do
-      form.rich_text_area :raw_content,  
+      concat form.rich_text_area(:raw_content,  
         class: "form-control",
         data: {
           target: "message.message",
           action: "keypress->message#keypress"
         }
+      )
+      concat send_message_button form
     end
   end
 
@@ -109,7 +111,6 @@ module ApplicationHelper
   def message_form
     form_with model: new_message, data: { controller: :message } do |form|
       concat message_text_area form
-      send_message_button form
     end
   end
 
