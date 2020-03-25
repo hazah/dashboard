@@ -1,59 +1,12 @@
 <div id="context-navigation" >
-  <%= select_tag :id,
-        options_from_collection_for_select(natural_guilds, :id, :name, current_natural_guild&.natural_guild_id),
-          class: "custom-select", id: :current_natural_guild,
-          data: { remote: true, url: current_natural_guild_path, method: :put }
-  %>
-  <%= select_tag :id,
-        options_from_collection_for_select(concern_areas, :id, :name, current_concern_area&.concern_area_id),
-          class: "custom-select", id: :current_concern_areas,
-          data: { 
-            remote: true,
-            url: current_concern_area_path,
-            method: :put,
-            controller: "concern-area",
-            action: "natural_guild:changed->concern-area#update"
-          }
-  %>
-  <div data-controller="current-profile">
-    <%= button_tag "profile", class: "btn btn-secondary", data: { action: "click->current-profile#menu" } %>
-    <ul data-target="current-profile.menu">
-      <li><%= link_to 'Log out', :session, method: :delete, remote: true %></li>
-    </ul>
-  </div>
+  <%= context_navigation %>
+  <%= profile_button %>
 </div>
 <div id="main-window">
-  <div class="locations" data-controller="location">
-    <%= render locations %>
-  </div>
+  <%= location_list %>
   <div class="conversation">
-    <div class="messages" id="messages" data-controller="messages" data-action="message:received->messages#received">
-      <%= render messages.reverse %>
-    </div>
-    <%= form_with model: new_message, data: { controller: :message } do |form| %>
-      <div class="input-group">
-        <%= form.rich_text_area :raw_content,  
-              class: "form-control",
-              data: {
-                target: "message.message",
-                action: "keypress->message#keypress"
-              }
-        %>
-        <div class="input-group-append">
-          <%= form.button :send, 
-                class: "input-group-text btn btn-secondary",
-                data: {
-                  target: "message.send",
-                  action: "click->message#send",
-                  disable_with: "sending..."
-                }
-          %>
-        </div>
-      </div>
-    <% end %>
+    <%= message_list %>
+    <%= message_form %>
   </div>
-  <div class="profiles" data-controller="profile" data-profile-last>
-    <div></div>
-    <div><%= render profiles %></div>
-  </div>
+  <%= profile_list %>
 </div>
