@@ -10,6 +10,7 @@ module MessagesHelper
       id: messages_id,
       class: messages_class,
       data: {
+        target: "component.messages",
         controller: "messages",
         action: "message:received->messages#received"
       }
@@ -25,18 +26,34 @@ module MessagesHelper
   end
 
   def send_button_color
-    @current_profiles.exists? ? "btn-success" : "btn-secondary"
+    if current_network_mode.network_mode == ProfileMode.first
+      current_profiles.exists? ? "btn-success" : "btn-secondary"
+    elsif current_network_mode.network_mode == ConversationMode.first
+      current_conversations.exists? ? "btn-primary" : "btn-success"
+    end
   end
 
   def send_button_text
-    @current_profiles.exists? ? "start" : "send"
+    if current_network_mode.network_mode == ProfileMode.first
+      current_profiles.exists? ? "start" : "send"
+    elsif current_network_mode.network_mode == ConversationMode.first
+      "send"
+    end
   end
 
   def send_button_disable_with
-    @current_profiles.exists? ? "starting..." : "sending..."
+    if current_network_mode.network_mode == ProfileMode.first
+      current_profiles.exists? ? "starting..." : "sending..."
+    elsif current_network_mode.network_mode == ConversationMode.first
+      "sending..."
+    end
   end
   
   def message_form_controller
-    @current_profiles.exists? ? :conversations : :messages
+    if current_network_mode.network_mode == ProfileMode.first
+      current_profiles.exists? ? :conversations : :messages
+    elsif current_network_mode.network_mode == ConversationMode.first
+      :messages
+    end
   end
 end

@@ -1,0 +1,2 @@
+class ConversationMode < NetworkMode
+end

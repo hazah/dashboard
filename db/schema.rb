@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_202916) do
+ActiveRecord::Schema.define(version: 2020_03_28_170114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,11 @@ ActiveRecord::Schema.define(version: 2020_03_26_202916) do
     t.index ["aggregate_profile_id"], name: "index_conversations_on_aggregate_profile_id"
   end
 
+  create_table "conversations_messages", id: false, force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.bigint "message_id", null: false
+  end
+
   create_table "credentials", force: :cascade do |t|
     t.string "type"
     t.bigint "profile_id", null: false
@@ -139,6 +144,15 @@ ActiveRecord::Schema.define(version: 2020_03_26_202916) do
     t.index ["profile_id"], name: "index_current_natural_guilds_on_profile_id"
   end
 
+  create_table "current_network_modes", force: :cascade do |t|
+    t.bigint "network_mode_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["network_mode_id"], name: "index_current_network_modes_on_network_mode_id"
+    t.index ["profile_id"], name: "index_current_network_modes_on_profile_id"
+  end
+
   create_table "current_profiles", force: :cascade do |t|
     t.bigint "current_profile_id", null: false
     t.bigint "profile_id", null: false
@@ -169,10 +183,10 @@ ActiveRecord::Schema.define(version: 2020_03_26_202916) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "conversation_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "names", force: :cascade do |t|
@@ -186,6 +200,12 @@ ActiveRecord::Schema.define(version: 2020_03_26_202916) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_natural_guilds_on_name", unique: true
+  end
+
+  create_table "network_modes", force: :cascade do |t|
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "password_credential_data", force: :cascade do |t|
@@ -238,10 +258,12 @@ ActiveRecord::Schema.define(version: 2020_03_26_202916) do
   add_foreign_key "current_locations", "profiles"
   add_foreign_key "current_natural_guilds", "natural_guilds"
   add_foreign_key "current_natural_guilds", "profiles"
+  add_foreign_key "current_network_modes", "network_modes"
+  add_foreign_key "current_network_modes", "profiles"
   add_foreign_key "current_profiles", "profiles"
   add_foreign_key "current_profiles", "profiles", column: "current_profile_id"
   add_foreign_key "human_details", "agents", column: "human_id"
-  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "password_credential_data", "credentials", column: "password_credential_id"
   add_foreign_key "password_credential_data", "passwords", column: "password_model_id"
   add_foreign_key "profiles", "agents"

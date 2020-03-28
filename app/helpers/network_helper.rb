@@ -8,7 +8,10 @@ module NetworkHelper
   def network_options
     {
       id: network_id,
-      class: network_class
+      class: network_class,
+      data: {
+        target: 'component.network'
+      }
     }
   end
 

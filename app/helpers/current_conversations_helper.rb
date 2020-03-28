@@ -1,5 +1,5 @@
 module CurrentConversationsHelper
-  def current_conversation
-    @current_conversation
+  def current_conversations
+    @current_conversations
   end
 end

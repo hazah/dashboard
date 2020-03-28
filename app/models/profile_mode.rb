@@ -1,0 +1,2 @@
+class ProfileMode < NetworkMode
+end

@@ -1,11 +1,1 @@
-document.getElementById("dashboard").
-  dispatchEvent(
-    new CustomEvent(
-      "component:refresh", {
-        detail: {
-          target: "newMessage",
-          data: "<%= j render "application/new_message" %>"
-        }
-      }
-    )
-  );
+<%= render "reset" %>

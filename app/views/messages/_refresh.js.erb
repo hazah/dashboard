@@ -1,0 +1,11 @@
+document.getElementById("dashboard").
+  dispatchEvent(
+    new CustomEvent(
+      "component:refresh", {
+        detail: {
+          target: "messages",
+          data: "<%= j render "application/messages" %>"
+        }
+      }
+    )
+  );

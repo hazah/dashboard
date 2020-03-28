@@ -3,21 +3,20 @@ class ConversationsController < ApplicationController
     @children = @current_profiles.map(&:profile) << @profile
     @aggregate = AggregateProfile.create detail: AggregateProfileDetail.create(children: @children), agent: @profile.human
     @conversation = Conversation.create aggregate_profile: @aggregate
-    @message = @conversation.messages.create message_params unless message_params[:raw_content].blank?
 
-    @profiles = Profile.where.not(id: @profile.id)
+    CurrentConversation.where(profile_id: @profile.id).destroy_all
+    CurrentConversation.create! conversation_id: @conversation.id, profile_id: @profile.id
+    
+    set_current_conversations
 
-    @current_conversation.attributes = { conversation_id: @conversation.id }
-    @current_conversation.save!
-  end
+    unless message_params[:raw_content].blank?
+      @message = current_user.messages.create message_params
+      @message.conversations = @current_conversations.map(&:conversation)
+    end
 
-  def update
-    @current_conversation.attributes = { conversation_id: @conversation.id }
-    @current_conversation.save!
-  end
+    @current_network_mode.update network_mode: ConversationMode.first
 
-  def destroy
-    @current_conversation.destroy if @current_conversation.conversation_id == params[:id].to_i
+    set_messages
   end
 
 private

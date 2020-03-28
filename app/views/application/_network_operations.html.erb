@@ -1,2 +1,4 @@
 <%= content_tag :div, network_operations_options do %>
+  <%= button_to 'profiles', [:current, :network_mode], class: "btn#{" btn-secondary" if current_network_mode.network_mode == ProfileMode.first}", remote: true, method: :put, params: { id: ProfileMode.first.id } %>
+  <%= button_to 'conversations', [:current, :network_mode], class: "btn#{" btn-success" if current_network_mode.network_mode == ConversationMode.first} ", remote: true, method: :put, params: { id: ConversationMode.first.id } %>
 <% end %>

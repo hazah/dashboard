@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  network_mode: one
+  profile: one
+
+two:
+  network_mode: two
+  profile: two

@@ -1,0 +1,5 @@
+<%= div_for conversation_link do %>
+  <%= link_to current_conversation_path(conversation_link.conversation), class: "conversation btn#{conversation_classes conversation_link.conversation}", remote: true, method: :put, data: conversation_link_data(conversation_link.conversation, conversation_link_counter) do %>
+    <%= render conversation_link.conversation %>
+  <% end %>
+<% end %>

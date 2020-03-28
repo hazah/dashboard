@@ -1,0 +1,14 @@
+document.getElementById("dashboard").
+  dispatchEvent(
+    new CustomEvent(
+      "component:refresh", { 
+        detail: {
+          target: "network",
+          data: "<%= j render "application/network" %>"
+        }
+      }
+    )
+  );
+
+<%= render "messages/refresh" %>
+<%= render "messages/reset" %>

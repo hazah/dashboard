@@ -1,4 +1,5 @@
 <%= div_for aggregate_profile do %>
+  <div>conversation between</div>
   <% aggregate_profile.detail.children.each do |profile| %>
     <%= render profile.name_model %>
   <% end %>

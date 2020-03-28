@@ -1,23 +1,19 @@
-document.getElementById("dashboard").
-  dispatchEvent(
-    new CustomEvent(
-      "component:refresh", { 
-        detail: {
-          target: "networkLinks",
-          data: "<%= j render "application/network_links" %>"
-        }
-      }
-    )
-  );
+(function (document) {
+  let last = document.getElementById("network_links").getAttribute("data-network-links-last");
 
-document.getElementById("dashboard").
-  dispatchEvent(
-    new CustomEvent(
-      "component:refresh", {
-        detail: {
-          target: "newMessage",
-          data: "<%= j render "application/new_message" %>"
+  document.getElementById("dashboard").
+    dispatchEvent(
+      new CustomEvent(
+        "component:refresh", { 
+          detail: {
+            target: "networkLinks",
+            data: "<%= j render "application/network_links" %>"
+          }
         }
-      }
-    )
-  );
+      )
+    );
+
+    document.getElementById("network_links").setAttribute("data-network-links-last", last);
+})(document);
+
+<%= render "messages/reset" %>

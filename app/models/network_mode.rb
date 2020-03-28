@@ -1,0 +1,2 @@
+class NetworkMode < ApplicationRecord
+end

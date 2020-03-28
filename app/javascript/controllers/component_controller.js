@@ -2,7 +2,15 @@
 import { Controller } from "stimulus";
 
 export default class extends Controller {
-  static targets = ["networkLinks", "newMessage", "context", "concernArea"];
+  static targets = [
+    "network", 
+    "networkLinks", 
+    "conversationLinks", 
+    "messages",
+    "newMessage", 
+    "context", 
+    "concernArea"
+  ];
 
   refresh(event) {
     let template = document.createElement("template");

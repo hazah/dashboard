@@ -25,6 +25,11 @@ Name.delete_all
 HumanDetail.delete_all
 Agent.delete_all
 
+NetworkMode.delete_all
+
+ProfileMode.create
+ConversationMode.create
+
 natural_guilds = {
   'Education': [
     'Education',

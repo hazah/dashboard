@@ -1,0 +1,20 @@
+(function (document) {
+  let last = document.getElementById("conversation_links").getAttribute("data-conversation-links-last");
+
+  document.getElementById("dashboard").
+    dispatchEvent(
+      new CustomEvent(
+        "component:refresh", { 
+          detail: {
+            target: "conversationLinks",
+            data: "<%= j render "application/conversation_links" %>"
+          }
+        }
+      )
+    );
+
+    document.getElementById("conversation_links").setAttribute("data-conversation-links-last", last);
+})(document);
+
+<%= render "messages/refresh" %>
+<%= render "messages/reset" %>

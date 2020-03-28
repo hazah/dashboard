@@ -1,3 +1,5 @@
-<%= link_to current_profile_path(aggregate_profile_link.profile), class: "profile aggregate-profile btn#{aggregate_profile_class aggregate_profile_link.profile}", remote: true, method: :put do %>
-  <%= render aggregate_profile_link.profile %>
+<%= div_for aggregate_profile_link do %>
+  <%= link_to current_profile_path(aggregate_profile_link.profile), class: "profile aggregate-profile btn#{aggregate_profile_classes aggregate_profile_link.profile}", remote: true, method: :put, data: aggregate_profile_network_link_data(aggregate_profile_link.profile, aggregate_profile_link_counter) do %>
+    <%= render aggregate_profile_link.profile %>
+  <% end %>
 <% end %>

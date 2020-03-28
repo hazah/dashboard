@@ -1,4 +1,4 @@
-#message {
+.message {
   &:first-child {
     margin-top: calc(#{$spacer} * #{$line-height-base});
   }

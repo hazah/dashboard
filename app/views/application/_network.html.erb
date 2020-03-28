@@ -1,4 +1,8 @@
 <%= content_tag :div, network_options do %>
   <%= render "application/network_operations" %>
-  <%= render "application/network_links" %>
+  <% if current_network_mode.network_mode == ProfileMode.first %>
+    <%= render "application/network_links" %>
+  <% elsif current_network_mode.network_mode == ConversationMode.first %>
+    <%= render "application/conversation_links" %>
+  <% end %>
 <% end %>

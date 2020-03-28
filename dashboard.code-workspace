@@ -7,7 +7,28 @@
 			"path": "./app"
 		},
 		{
+			"path": "./app/models"
+		},
+		{
+			"path": "./app/controllers"
+		},
+		{
+			"path": "./app/helpers"
+		},
+		{
+			"path": "./app/views"
+		},
+		{
+			"path": "./app/javascript"
+		},
+		{
+			"path": "./app/assets/stylesheets"
+		},
+		{
 			"path": "./config"
+		},
+		{
+			"path": "./db/migrate"
 		}
 	],
 	"settings": {

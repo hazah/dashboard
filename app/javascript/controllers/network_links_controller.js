@@ -17,6 +17,10 @@ export default class extends Controller {
     this.last = null;
   }
 
+  index(target) {
+    return target.closest("a").getAttribute("data-index").trim();
+  }
+
   id(target) {
     return target.closest("a").getAttribute("data-id").trim();
   }
@@ -58,22 +62,18 @@ export default class extends Controller {
       let profile_ids = [];
 
       this.networkLinkTargets.forEach(el => {
-        if (el.classList.contains('btn-secondary')) {
+        if (this.is_selected(el)) {
           ++toStartCount;
           
-          const current = el.getAttribute('data-id').trim();
+          const current = this.id(el);
           profile_ids.push(current);
         }
       });
       if (toStartCount == 0) {
         const current = this.id(target);
-        profile_ids.push(current);
-        
         let form_data = new FormData();
     
-        profile_ids.forEach(id => {
-          form_data.append('profile_id', id);
-        });
+        form_data.append('profile_id', current);
 
         this.sendPost(form_data);
         this.stopEverything(event);
@@ -95,7 +95,8 @@ export default class extends Controller {
 
   shiftKeyPressedWithLastSet(event) {
     let target = event.target;
-    if (this.id(target) == this.last) {
+    
+    if (this.index(target) == this.last) {
       const current = this.id(target);
       this.sendDelete(current);
       this.stopEverything(event);
@@ -106,13 +107,13 @@ export default class extends Controller {
 
       let profile_ids = [];
       
-      this.networkLinkTargets.forEach(el => {
-        const current = el.getAttribute('data-id').trim();
+      this.networkLinkTargets.forEach((el) => {
+        const current = this.id(el);
 
-        if (this.last == current) {
+        if (this.last == this.index(el)) {
           lastFound = true;
           profile_ids.push(current);
-        } else if (el === event.target) {
+        } else if (this.id(el) === this.id(target)) {
           targetFound = true;
           profile_ids.push(current);
         } else if (lastFound && !targetFound || targetFound && !lastFound) {
@@ -135,7 +136,7 @@ export default class extends Controller {
     let toStartCount = 0;
 
     this.networkLinkTargets.forEach(el => {
-      if (el.classList.contains('btn-secondary')) {
+      if (this.is_selected(el)) {
         ++toStartCount;
       }
     });
@@ -163,21 +164,21 @@ export default class extends Controller {
     }
     if (toStartCount != 1 || !this.is_selected(target)) {
       if (event.shiftKey && this.last.length == 0) {
-        this.last = target.getAttribute('data-profile-id');
+        this.last = this.index(target);
       }
     }
   }
 
   toggle(event) {
     if (!event.shiftKey) {
-      this.last = this.id(event.target);
+      this.last = this.index(event.target);
     }
     if (event.ctrlKey) {
       this.ctrlKeyPressed(event);
     } else if (event.shiftKey && this.last.length > 0) {
-      this.shiftKeyPressedWithLastSet(event)
+      this.shiftKeyPressedWithLastSet(event);
     } else {
-      this.ctrlKeyNotPressedWithLastNotSet(event)
+      this.ctrlKeyNotPressedWithLastNotSet(event);
     }
   }
 }
