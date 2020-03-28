@@ -1,9 +1,10 @@
+/*jshint esversion: 6 */
 import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = ["menu"];
 
-  menu(event) {
+  menu() {
     let menu = this.menuTarget;
     
     if (menu.style.display == "none") {

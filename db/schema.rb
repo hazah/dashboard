@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_020406) do
+ActiveRecord::Schema.define(version: 2020_03_26_202916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "aggregate_profile_details", force: :cascade do |t|
+    t.bigint "aggregate_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["aggregate_profile_id"], name: "index_aggregate_profile_details_on_aggregate_profile_id"
+  end
+
   create_table "basic_profile_details", force: :cascade do |t|
     t.bigint "basic_profile_id", null: false
     t.bigint "name_model_id", null: false
@@ -63,6 +70,13 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
     t.index ["name_model_id"], name: "index_basic_profile_details_on_name_model_id"
   end
 
+  create_table "child_profiles_parent_profiles", force: :cascade do |t|
+    t.bigint "parent_profile_id", null: false
+    t.bigint "child_profile_id", null: false
+    t.index ["child_profile_id"], name: "index_child_profiles_parent_profiles_on_child_profile_id"
+    t.index ["parent_profile_id"], name: "index_child_profiles_parent_profiles_on_parent_profile_id"
+  end
+
   create_table "concern_areas", force: :cascade do |t|
     t.bigint "natural_guild_id", null: false
     t.string "name"
@@ -70,6 +84,13 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_concern_areas_on_name", unique: true
     t.index ["natural_guild_id"], name: "index_concern_areas_on_natural_guild_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "aggregate_profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["aggregate_profile_id"], name: "index_conversations_on_aggregate_profile_id"
   end
 
   create_table "credentials", force: :cascade do |t|
@@ -89,6 +110,15 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
     t.index ["concern_area_id"], name: "index_current_concern_areas_on_concern_area_id"
     t.index ["natural_guild_id"], name: "index_current_concern_areas_on_natural_guild_id"
     t.index ["profile_id"], name: "index_current_concern_areas_on_profile_id"
+  end
+
+  create_table "current_conversations", force: :cascade do |t|
+    t.bigint "profile_id", null: false
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_current_conversations_on_conversation_id"
+    t.index ["profile_id"], name: "index_current_conversations_on_profile_id"
   end
 
   create_table "current_locations", force: :cascade do |t|
@@ -139,8 +169,10 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
   end
 
   create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "names", force: :cascade do |t|
@@ -188,14 +220,20 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "aggregate_profile_details", "profiles", column: "aggregate_profile_id"
   add_foreign_key "basic_profile_details", "emails", column: "email_model_id"
   add_foreign_key "basic_profile_details", "names", column: "name_model_id"
   add_foreign_key "basic_profile_details", "profiles", column: "basic_profile_id"
+  add_foreign_key "child_profiles_parent_profiles", "aggregate_profile_details", column: "parent_profile_id"
+  add_foreign_key "child_profiles_parent_profiles", "profiles", column: "child_profile_id"
   add_foreign_key "concern_areas", "natural_guilds"
+  add_foreign_key "conversations", "profiles", column: "aggregate_profile_id"
   add_foreign_key "credentials", "profiles"
   add_foreign_key "current_concern_areas", "concern_areas"
   add_foreign_key "current_concern_areas", "natural_guilds"
   add_foreign_key "current_concern_areas", "profiles"
+  add_foreign_key "current_conversations", "conversations"
+  add_foreign_key "current_conversations", "profiles"
   add_foreign_key "current_locations", "locations"
   add_foreign_key "current_locations", "profiles"
   add_foreign_key "current_natural_guilds", "natural_guilds"
@@ -203,6 +241,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_020406) do
   add_foreign_key "current_profiles", "profiles"
   add_foreign_key "current_profiles", "profiles", column: "current_profile_id"
   add_foreign_key "human_details", "agents", column: "human_id"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "password_credential_data", "credentials", column: "password_credential_id"
   add_foreign_key "password_credential_data", "passwords", column: "password_model_id"
   add_foreign_key "profiles", "agents"

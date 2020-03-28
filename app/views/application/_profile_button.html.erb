@@ -1,0 +1,6 @@
+<%= content_tag :div, profile_button_options do %>
+  <%= button_tag "profile", class: "btn btn-secondary", data: { action: "click->current-profile#menu" } %>
+  <%= content_tag :ul, data: { target: "current-profile.menu" } do %>
+    <%= content_tag :li, link_to('Log out', :session, method: :delete, remote: true) %>
+  <% end %>
+<% end %>

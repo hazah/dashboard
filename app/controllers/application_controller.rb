@@ -10,17 +10,21 @@ class ApplicationController < ActionController::Base
       current_concern_area.concern_area ||= @current_natural_guild.natural_guild.concern_areas.first
     end
     @current_location = CurrentLocation.find_or_initialize_by profile_id: @profile.id
-    @current_profiles = CurrentProfile.where(current_profile_id: @profile.id)
+    @current_profiles = CurrentProfile.where current_profile_id: @profile.id
+    @current_conversation = CurrentConversation.find_or_initialize_by(profile_id: @profile.id) do |current_conversation|
+      current_conversation.conversation ||= Conversation.new aggregate_profile: AggregateProfile.new(detail: AggregateProfileDetail.new)
+    end
+    @new_conversation = Conversation.new
+    @new_message  = Message.new
   end
 
   def index
     @natural_guilds = NaturalGuild.all
     @concern_areas  = @current_natural_guild.natural_guild.concern_areas
-    @profiles       = BasicProfile.includes(detail: [:name_model, :email_model]).where.not(id: @profile.id)
+    @profiles       = Profile.where.not(id: @profile.id).where(id: @current_conversation.conversation.aggregate_profile.detail.children)
     @locations      = Location.all
     
-    @messages     = Message.order(created_at: :desc).limit(30).all
-    @new_message  = Message.new
+    @messages     = Message.where(conversation_id: @current_conversation.conversation_id).order(created_at: :desc).limit(30).all
   end
 
 private

@@ -1,1 +1,4 @@
-<div class="message"><%= message.raw_content %><div><%= l message.created_at %></div></div>
+<%= div_for message do %>
+  <div class="content"><%= message.raw_content %></div>
+  <div class="timestamp"><%= l message.created_at %></div>
+<% end %>

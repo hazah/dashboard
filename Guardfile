@@ -52,6 +52,7 @@ guard 'livereload' do
   watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{config/locales/.+\.yml})
+  watch(%r{^config/routes.rb})
 end
 
 guard :bundler do
@@ -84,7 +85,7 @@ end
 
 guard 'rails', host: '0.0.0.0' do
   watch('Gemfile.lock')
-  watch(%r{^(config|lib)/.*})
+  watch(%r{^(config|lib)/(?!routes.rb|locales).*})
 end
 
 guard :webpack, config: 'config/webpack/development.js'

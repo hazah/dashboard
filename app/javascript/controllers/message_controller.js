@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import { Controller } from "stimulus";
 
 export default class extends Controller {
@@ -11,8 +12,10 @@ export default class extends Controller {
   }
 
   send(event) {
-    if (this.messageTarget.value.trim() === "") {
-      event.preventDefault();
+    if (this.sendTarget.classList.contains('btn-secondary')) {
+      if (this.messageTarget.value.trim() === "") {
+        event.preventDefault();
+      }
     }
   }
 }

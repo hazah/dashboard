@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
-  before_action if: :current_user?, only: :new do
-    redirect_to root_path
-  end
+  # before_action if: :current_user?, only: :new do
+  #   redirect_to root_path
+  # end
 
   def new
     @credential = PasswordCredential.new

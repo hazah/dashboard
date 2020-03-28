@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   def create
-    @message = Message.create message_params
+    @message = @current_conversation.conversation.messages.create message_params
   end
 
 private

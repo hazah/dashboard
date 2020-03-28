@@ -1,5 +1,6 @@
 class CurrentProfilesController < ApplicationController
-  before_action :set_profile
+  before_action :set_profiles
+  before_action :set_new_message
 
   def create
     CurrentProfile.where(current_profile_id: @profile.id).destroy_all
@@ -27,7 +28,11 @@ private
     params.keys.include?("profile_id") ? [params[:profile_id]] : params[:profile_ids]
   end
 
-  def set_profile
-    @profile = current_user.credential.basic_profile
+  def set_profiles
+    @profiles = Profile.where.not(id: @profile.id).where(id: @current_conversation.conversation.aggregate_profile.detail.children)
+  end
+
+  def set_new_message
+    @new_message = Message.new
   end
 end

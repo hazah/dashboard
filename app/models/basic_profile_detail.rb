@@ -6,4 +6,7 @@ class BasicProfileDetail < ApplicationRecord
   has_many :credentials, through: :basic_profile
 
   accepts_nested_attributes_for :basic_profile, :name_model, :email_model
+  default_scope do
+    includes(:name_model, :email_model)
+  end
 end

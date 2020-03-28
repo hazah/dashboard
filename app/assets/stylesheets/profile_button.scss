@@ -1,0 +1,16 @@
+#profile_button {
+  @include make-col(1);
+  > button {
+    @include controls;
+  }
+  > ul {
+    position: absolute;
+    right: 0;
+    top: $large-size;
+    width: calc(576px / 2);
+    border: 1px solid;
+    background-color: $light;
+    z-index: 999;
+    display: none;
+  }
+}

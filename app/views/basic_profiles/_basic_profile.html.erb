@@ -1,4 +1,4 @@
-<%= link_to current_profile_path(basic_profile), class: "profile basic-profile btn#{' btn-secondary' if current_profiles.map(&:profile_id).include?(basic_profile.id)}", remote: true, method: :put, data: { profile_id: basic_profile.id, target: 'profile.profile', action: 'click->profile#toggle' } do %>
+<%= div_for basic_profile do %>
   <%= render basic_profile.name_model %>
   <%= render basic_profile.email_model %>
 <% end %>

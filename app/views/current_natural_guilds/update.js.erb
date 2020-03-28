@@ -1,10 +1,11 @@
-document.getElementById("current_concern_areas").dispatchEvent(new CustomEvent("natural_guild:changed", { detail: "<%= j select_tag :id,
-        options_from_collection_for_select(concern_areas, :id, :name, current_concern_area&.concern_area_id),
-          class: "custom-select", id: :current_concern_areas,
-          data: { 
-            remote: true,
-            url: current_concern_area_path,
-            method: :put,
-            controller: "concern-area",
-            action: "natural_guild:changed->concern-area#update"
-          } %>" }));
+document.getElementById("dashboard").
+  dispatchEvent(
+    new CustomEvent(
+      "component:refresh", {
+        detail: {
+          target: "concernArea",
+          data: "<%= j current_concern_areas_select %>"
+        }
+      }
+    )
+  );

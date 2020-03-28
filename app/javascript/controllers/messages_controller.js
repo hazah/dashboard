@@ -10,7 +10,7 @@ export default class extends Controller {
     
     template.innerHTML = event.detail.data;
     
-    this.element.appendChild(template.content.firstChild);
+    this.element.appendChild(template.content.firstElementChild);
     this.element.scrollTop = this.element.scrollHeight;
   }
 }

@@ -1,0 +1,3 @@
+<%= link_to current_profile_path(basic_profile_link.profile), class: "profile basic-profile btn#{basic_profile_class basic_profile_link.profile}", remote: true, method: :put, data: basic_profile_network_link_data(basic_profile_link.profile) do %>
+  <%= render basic_profile_link.profile %>
+<% end %>

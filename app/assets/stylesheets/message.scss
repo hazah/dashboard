@@ -1,0 +1,11 @@
+#message {
+  &:first-child {
+    margin-top: calc(#{$spacer} * #{$line-height-base});
+  }
+  margin-bottom: calc(#{$spacer} * #{$line-height-base});
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  min-height: calc(#{$main-size});
+}

@@ -1,0 +1,10 @@
+#main_window {
+  height: calc(100% - #{$large-size});
+  @include make-row(0);
+  > div {
+    @include make-col-ready(0);
+  }
+  @import "context";
+  @import "activity";
+  @import "network";
+}

@@ -74,4 +74,6 @@ Rails.application.configure do
   end
   
   config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
+
+  config.hosts << "fa797215.ngrok.io"
 end

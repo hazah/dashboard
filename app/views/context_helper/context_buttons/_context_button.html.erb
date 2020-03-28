@@ -1,0 +1,3 @@
+<%= button_to [:current, :location], class: "btn#{' btn-secondary' if current_location.location_id == context_button.location.id}", remote: true, method: :put, params: { id: context_button.location.id }, data: context_button_data(context_button.location) do %>
+  <%= render context_button.location %>
+<% end %>

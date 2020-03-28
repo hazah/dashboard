@@ -1,0 +1,11 @@
+document.getElementById("dashboard").
+  dispatchEvent(
+    new CustomEvent(
+      "component:refresh", {
+        detail: {
+          target: "context",
+          data: "<%= j render "application/context" %>"
+        }
+      }
+    )
+  );

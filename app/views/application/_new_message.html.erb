@@ -1,0 +1,8 @@
+<%= form_with model: new_message, id: :new_message, data: { target: "component.newMessage", controller: "message" } do |form| %>
+  <%= content_tag :div, class: "input-group" do %>
+    <%= form.rich_text_area :raw_content, class: "form-control", data: { target: "message.message", action: "keypress->message#keypress" } %>
+    <%= content_tag :div, class: "input-group-append" do %>
+      <%= form.button send_button_text, class: "input-group-text btn #{send_button_color}", data: { target: "message.send", action: "click->message#send" } %>
+    <% end %>
+  <% end %>
+<% end %>

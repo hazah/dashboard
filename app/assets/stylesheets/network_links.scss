@@ -1,0 +1,10 @@
+#network_links {
+  height: calc(100% - #{$large-size});
+  overflow-y: auto;
+  overflow-x: hidden;
+  > div, > div > a {
+    height: $main-size;
+    width: 100%;
+    border-radius: 0;
+  }
+}

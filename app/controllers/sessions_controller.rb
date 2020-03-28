@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
-  before_action if: :current_user?, except: :destroy do
-    redirect_to root_path
-  end
+  # before_action if: :current_user?, except: :destroy do
+  #   redirect_to root_path
+  # end
 
   def new
     @credential = PasswordCredential.new
@@ -22,11 +22,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.update expires_at: Time.now
-    current_user = nil
-    session.delete :current_user_id
-    cookies.delete :user_id
-    redirect_to [:new, :session]
+    # current_user.update expires_at: Time.now
+    # current_user = nil
+    # session.delete :current_user_id
+    # cookies.delete :user_id
+    # redirect_to [:new, :session]
   end
 
 private

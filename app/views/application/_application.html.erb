@@ -1,0 +1,8 @@
+<%= content_tag :div, application_options do %>
+  <% if controller_name == "application" %>
+    <%= render "application/main_context" %>
+    <%= render "application/main_window" %>
+  <% else %>
+    <%= render "application/#{controller_name.singularize}" %>
+  <% end %>
+<% end %>

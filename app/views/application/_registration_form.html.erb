@@ -1,0 +1,11 @@
+<%= content_tag :div do %>
+  <%= form_with model: credential, url: [:registration] do |credential_form| %>
+    <%= email_credential credential_form %>
+    <%= password_credential credential_form %>
+    <%= password_confirmation_credential credential_form %>
+    <%= name_credential credential_form %>
+    <%= credential_form.button 'register', type: :submit, class: "btn btn-secondary", data: { disable_with: "registering..."} %>
+  <% end %>
+  <p>or</p>
+  <p><%= link_to "log in", [:new, :session], class: "btn" %></p>
+<% end %>

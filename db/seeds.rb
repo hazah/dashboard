@@ -1,9 +1,14 @@
 Message.delete_all
 
+CurrentConversation.delete_all
 CurrentProfile.delete_all
 CurrentLocation.delete_all
 CurrentConcernArea.delete_all
 CurrentNaturalGuild.delete_all
+
+Conversation.delete_all
+AggregateProfileDetail.all.each { |d| d.children = [] }
+AggregateProfileDetail.delete_all
 
 Location.delete_all
 ConcernArea.delete_all
@@ -33,7 +38,7 @@ natural_guilds = {
     'Trade',
     'Computing',
     'Synthetic Neural Computing',
-    'Santient Machine'
+    'Sentient Machine'
   ],
   'Immunity': [
     'Hygiene',
@@ -56,7 +61,7 @@ natural_guilds = {
   'Trade': [],
   'Computing': [],
   'Synthetic Neural Computing': [],
-  'Santient Machine': []
+  'Sentient Machine': []
 }
 
 NaturalGuild.create natural_guilds.map{ |g, cs| { name: g, concern_areas: ConcernArea.create(cs.map{ |c| { name: c } }) } }

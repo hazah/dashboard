@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 import consumer from "./consumer";
 
 consumer.subscriptions.create({ channel: "ConversationChannel" }, {
@@ -10,7 +11,16 @@ consumer.subscriptions.create({ channel: "ConversationChannel" }, {
   },
 
   received(data) {
-    let messages = document.getElementById("messages");
-    messages.dispatchEvent(new CustomEvent("message:received", { detail: { data: data } }));
+    document.getElementById("messages").
+      dispatchEvent(
+        new CustomEvent(
+          "message:received", {
+            detail: {
+              data: data
+            }
+          }
+        )
+      );
+
   }
 });

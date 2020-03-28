@@ -1,0 +1,3 @@
+<%= link_to current_profile_path(aggregate_profile_link.profile), class: "profile aggregate-profile btn#{aggregate_profile_class aggregate_profile_link.profile}", remote: true, method: :put do %>
+  <%= render aggregate_profile_link.profile %>
+<% end %>

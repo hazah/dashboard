@@ -1,0 +1,17 @@
+#new_message {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 120px;
+  margin-top: 20px;
+  > div {
+    width: 650px;
+  }
+
+  > div > #message_raw_content {
+    border-radius: 0;
+    resize: none;
+  }
+  > div > div > button {
+    width: calc(10ch + 20px);
+  }
+}

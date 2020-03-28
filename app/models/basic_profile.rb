@@ -5,4 +5,8 @@ class BasicProfile < Profile
   delegate :name_model, :email_model, to: :detail
 
   accepts_nested_attributes_for :detail, :human
+
+  default_scope do
+    includes(detail: [ :name_model, :email_model])
+  end
 end

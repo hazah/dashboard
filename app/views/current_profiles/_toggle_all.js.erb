@@ -1,3 +1,0 @@
-document.querySelectorAll("a[data-profile-id").forEach(a => {
-  a.classList.toggle('btn-secondary', <%== "[\"#{current_profiles.pluck(:profile_id).join "\", \""}\"]" %>.includes(a.getAttribute("data-profile-id")));
-});

@@ -48,6 +48,8 @@ group :development do
   gem 'guard-rails',      require: false
   gem 'guard-livereload', require: false
   gem 'guard-webpack',    require: false
+
+  gem 'faker'
 end
 
 group :test do
@@ -60,5 +62,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'faker'
-gem  'mini_magick'
+gem 'mini_magick', '~> 4.10'
+gem 'record_tag_helper', '~> 1.0'
