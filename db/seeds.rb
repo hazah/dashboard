@@ -1,3 +1,4 @@
+ActionText::RichText.delete_all
 Message.delete_all
 
 CurrentConversation.delete_all
@@ -5,6 +6,7 @@ CurrentProfile.delete_all
 CurrentLocation.delete_all
 CurrentConcernArea.delete_all
 CurrentNaturalGuild.delete_all
+CurrentNetworkMode.delete_all
 
 Conversation.delete_all
 AggregateProfileDetail.all.each { |d| d.children = [] }
@@ -74,6 +76,6 @@ NaturalGuild.create natural_guilds.map{ |g, cs| { name: g, concern_areas: Concer
 locations = ["Embassy", "Great Bonfire", "Crystal Gardens", "Field Research Lab"]
 Location.create locations.map{ |l| { name: l } }
 
-profile_data = (1..12).map{|v| [ Faker::Company.name, Faker::Internet.email ]}
-profile_data = profile_data.map{|k, v| { name_model_attributes: { name: k }, email_model_attributes: { email: v } } }
-BasicProfile.create profile_data.map{|v| { detail_attributes: v, human_attributes: { detail_attributes: { id: "" }}}}
+# profile_data = (1..12).map{|v| [ Faker::Company.name, Faker::Internet.email ]}
+# profile_data = profile_data.map{|k, v| { name_model_attributes: { name: k }, email_model_attributes: { email: v } } }
+# BasicProfile.create profile_data.map{|v| { detail_attributes: v, human_attributes: { detail_attributes: { id: "" }}}}

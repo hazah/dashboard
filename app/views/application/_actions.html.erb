@@ -1,0 +1,5 @@
+<%= content_tag :div, actions_options do %>
+  <% if current_network_mode.network_mode == ConversationMode.first %>
+    <%= button_to "end conversation", :end, remote: true, class: "btn btn-danger" %>
+  <% end %>
+<% end %>

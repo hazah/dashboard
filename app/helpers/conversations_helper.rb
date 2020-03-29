@@ -35,11 +35,17 @@ module ConversationsHelper
   end
 
   def conversation_links
-    conversations.map { |conversation| ConversationLink.new conversation }
+    conversations.distinct.map { |conversation| ConversationLink.new conversation }
   end
 
   def conversation_classes(conversation)
-    if current_conversations.map(&:conversation_id).include?(conversation.id)
+    if conversation.ended_at?
+      if current_conversations.map(&:conversation_id).include?(conversation.id)
+        ' btn-warning'
+      else
+        ' btn-danger'
+      end
+    elsif current_conversations.map(&:conversation_id).include?(conversation.id)
       ' btn-primary'
     else
       ' btn-success'

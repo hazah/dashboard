@@ -16,6 +16,7 @@ class ConversationsController < ApplicationController
 
     @current_network_mode.update network_mode: ConversationMode.first
 
+    set_conversations
     set_messages
   end
 

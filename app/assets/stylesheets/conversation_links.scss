@@ -1,5 +1,5 @@
 #conversation_links {
-  height: calc(100% - #{$large-size});
+  height: calc(100% - #{$main-size});
   overflow-y: auto;
   overflow-x: hidden;
   > div, > div > a {

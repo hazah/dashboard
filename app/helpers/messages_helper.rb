@@ -29,7 +29,17 @@ module MessagesHelper
     if current_network_mode.network_mode == ProfileMode.first
       current_profiles.exists? ? "btn-success" : "btn-secondary"
     elsif current_network_mode.network_mode == ConversationMode.first
-      current_conversations.exists? ? "btn-primary" : "btn-success"
+      if current_conversations.exists?
+        if current_conversations.map(&:conversation_id).select { |id| 
+          conversations.where.not(ended_at: nil).pluck(:id).include?(id)
+        }.any?
+          "btn-warning"
+        else
+          "btn-primary"
+        end
+      else
+        "btn-success"
+      end
     end
   end
 

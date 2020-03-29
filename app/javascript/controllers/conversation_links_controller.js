@@ -26,7 +26,7 @@ export default class extends Controller {
   }
 
   is_selected(target) {
-    return target.closest("a").classList.contains('btn-primary');
+    return target.closest("a").classList.contains('btn-primary') || target.closest("a").classList.contains('btn-warning');
   }
 
   stopEverything(event) {

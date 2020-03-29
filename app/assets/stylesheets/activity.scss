@@ -3,6 +3,7 @@
   border-right: 1px solid #ced4da;
   border-left: 1px solid #ced4da;
   max-height: 100%;
+  @import "actions";
   @import "messages";
   @import "new_message";
 }

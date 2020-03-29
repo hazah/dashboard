@@ -1,5 +1,5 @@
 #network_operations {
-  min-height: calc(#{$large-size});
+  min-height: calc(#{$main-size});
   border-bottom: 1px solid #ced4da;
   @include make-row(0);
   > form {

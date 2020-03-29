@@ -3,6 +3,7 @@ class CurrentConversationsController < ApplicationController
     CurrentConversation.where(profile_id: @profile.id).destroy_all
     CurrentConversation.create! ids.map{ |id| { conversation_id: id, profile_id: @profile.id } }
     
+    set_conversations
     set_current_conversations
     set_messages
   end
@@ -11,6 +12,7 @@ class CurrentConversationsController < ApplicationController
     @current_conversation = CurrentConversation.find_by(profile_id: @profile.id)
     @current_conversation.update! conversation_id: params[:id]
 
+    set_conversations
     set_current_conversations
     set_messages
   end
@@ -18,6 +20,7 @@ class CurrentConversationsController < ApplicationController
   def destroy
     CurrentConversation.find_by(conversation_id: params[:id]).destroy
     
+    set_conversations
     set_current_conversations
     set_messages
   end

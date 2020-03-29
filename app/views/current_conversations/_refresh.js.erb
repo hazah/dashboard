@@ -16,5 +16,17 @@
     document.getElementById("conversation_links").setAttribute("data-conversation-links-last", last);
 })(document);
 
+document.getElementById("dashboard").
+  dispatchEvent(
+    new CustomEvent(
+      "component:refresh", { 
+        detail: {
+          target: "actions",
+          data: "<%= j render "application/actions" %>"
+        }
+      }
+    )
+  );
+
 <%= render "messages/refresh" %>
 <%= render "messages/reset" %>

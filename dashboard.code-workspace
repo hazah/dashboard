@@ -4,16 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "./app"
-		},
-		{
-			"path": "./app/models"
-		},
-		{
-			"path": "./app/controllers"
-		},
-		{
-			"path": "./app/helpers"
+			"path": "./app/views/application"
 		},
 		{
 			"path": "./app/views"
@@ -22,7 +13,19 @@
 			"path": "./app/javascript"
 		},
 		{
+			"path": "./app/controllers"
+		},
+		{
+			"path": "./app/helpers"
+		},
+		{
 			"path": "./app/assets/stylesheets"
+		},
+		{
+			"path": "./app/models"
+		},
+		{
+			"path": "./app"
 		},
 		{
 			"path": "./config"

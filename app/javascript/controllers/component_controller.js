@@ -5,7 +5,8 @@ export default class extends Controller {
   static targets = [
     "network", 
     "networkLinks", 
-    "conversationLinks", 
+    "conversationLinks",
+    "actions" ,
     "messages",
     "newMessage", 
     "context", 

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: 'application#index'
-  resources :conversations
+  resources :conversations do
+    collection do
+      resource :end
+    end
+  end
   resources :messages
   
   resources :current_profiles

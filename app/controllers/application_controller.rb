@@ -73,11 +73,11 @@ private
   end
 
   def set_profiles
-    @profiles = Profile.where.not(id: @profile.id).order(created_at: :desc)
+    @profiles = Profile.order(created_at: :desc)
   end
   
   def set_conversations
-    @conversations = @profile.human.profiles.where(type: 'AggregateProfile').order(created_at: :desc).map(&:conversation)
+    @conversations = Conversation.joins(aggregate_profile: { detail: :children }).where(aggregate_profile: { detail: { child_profiles_parent_profiles: { child_profile_id: @profile.id }}}).order(ended_at: :desc, created_at: :desc) 
   end
 
   def set_locations

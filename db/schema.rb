@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
 
   create_table "conversations", force: :cascade do |t|
     t.bigint "aggregate_profile_id", null: false
+    t.datetime "ended_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["aggregate_profile_id"], name: "index_conversations_on_aggregate_profile_id"
