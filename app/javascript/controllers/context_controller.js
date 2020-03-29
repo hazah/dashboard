@@ -20,7 +20,7 @@ export default class extends Controller {
   sendDelete(form_data) {
     Rails.ajax({
       type: 'DELETE', 
-      url: `/current_location`,
+      url: `/current_context`,
       data: form_data,
       dataType: 'script'
     });
@@ -29,7 +29,7 @@ export default class extends Controller {
   sendPost(form_data) {
     Rails.ajax({
       type: 'POST', 
-      url: '/current_location',
+      url: '/current_context',
       data: form_data,
       dataType: 'script'
     });
@@ -57,7 +57,7 @@ export default class extends Controller {
       const current = this.id(target);
       let form_data = new FormData();
   
-      form_data.append('location_id', current);
+      form_data.append('context_id', current);
 
       this.sendPost(form_data);
       this.stopEverything(event);

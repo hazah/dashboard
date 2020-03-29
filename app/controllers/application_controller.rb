@@ -3,19 +3,19 @@ class ApplicationController < ActionController::Base
 
   before_action if: :current_user? do
     set_profile
-    set_current_natural_guild
-    set_current_concern_area
-    set_current_location
+    set_current_category
+    set_current_category_child
+    set_current_context
     set_current_network_mode
     set_current_profiles
     set_current_conversations
     set_new_conversation
     set_new_message
-    set_natural_guilds
-    set_concern_areas
+    set_categories
+    set_category_children
     set_profiles
     set_conversations
-    set_locations
+    set_contexts
     set_network_modes
     set_messages
   end
@@ -26,20 +26,20 @@ private
     @profile = current_user.credential.basic_profile
   end
 
-  def set_current_natural_guild
-    @current_natural_guild = CurrentNaturalGuild.find_or_initialize_by profile_id: @profile.id do |current_natural_guild|
-      current_natural_guild.natural_guild ||= NaturalGuild.first
+  def set_current_category
+    @current_category = CurrentCategory.find_or_initialize_by profile_id: @profile.id do |current_category|
+      current_category.category ||= Category.where(parent: nil).first
     end
   end
 
-  def set_current_concern_area
-    @current_concern_area = CurrentConcernArea.find_or_initialize_by profile_id: @profile.id, natural_guild: @current_natural_guild.natural_guild do |current_concern_area|
-      current_concern_area.concern_area ||= @current_natural_guild.natural_guild.concern_areas.first
+  def set_current_category_child
+    @current_category_child = CurrentCategoryChild.find_or_initialize_by profile_id: @profile.id, parent_id: @current_category.category_id do |current_category_child|
+      current_category_child.category ||= @current_category.category.children.first
     end
   end
 
-  def set_current_location
-    @current_location = CurrentLocation.find_or_initialize_by profile_id: @profile.id
+  def set_current_context
+    @current_context = CurrentContext.find_or_initialize_by profile_id: @profile.id
   end
 
   def set_current_network_mode
@@ -64,12 +64,12 @@ private
     @new_message = Message.new
   end
 
-  def set_natural_guilds
-    @natural_guilds = NaturalGuild.all
+  def set_categories
+    @categories = Category.where(parent_id: nil).all
   end
 
-  def set_concern_areas
-    @concern_areas = @current_natural_guild.natural_guild.concern_areas
+  def set_category_children
+    @category_children = @current_category.category.children
   end
 
   def set_profiles
@@ -80,8 +80,8 @@ private
     @conversations = Conversation.joins(aggregate_profile: { detail: :children }).where(aggregate_profile: { detail: { child_profiles_parent_profiles: { child_profile_id: @profile.id }}}).order(ended_at: :desc, created_at: :desc) 
   end
 
-  def set_locations
-    @locations = Location.all
+  def set_contexts
+    @contexts = Context.all
   end
 
   def set_network_modes

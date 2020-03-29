@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   resources :current_profiles
   resources :current_conversations
   resource :current_network_mode
-  resource :current_natural_guild
-  resource :current_concern_area
-  resource :current_location
+  resource :current_category
+  resource :current_category_child
+  resource :current_context
 
   resource :registration
   resource :session

@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  concern_area: one
+  category_child: one
 
 two:
-  concern_area: two
+  category_child: two

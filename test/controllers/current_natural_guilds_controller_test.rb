@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CurrentNaturalGuildsControllerTest < ActionDispatch::IntegrationTest
+class CurrentCategorysControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

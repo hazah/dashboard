@@ -19,22 +19,22 @@ module ContextHelper
   class ContextButton
     include ActiveModel::Model
 
-    attr_accessor :location
+    attr_accessor :context
 
-    def initialize(location)
-      @location = location
+    def initialize(context)
+      @context = context
     end
   end
   
   def context_buttons
-    locations.map { |location| ContextButton.new location }
+    contexts.map { |context| ContextButton.new context }
   end
 
-  def context_button_data(location)
+  def context_button_data(context)
     {
       target: "context.button",
       action: "click->context#toggle",
-      id: location.id
+      id: context.id
     }
   end
 end

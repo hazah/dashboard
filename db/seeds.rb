@@ -3,18 +3,17 @@ Message.delete_all
 
 CurrentConversation.delete_all
 CurrentProfile.delete_all
-CurrentLocation.delete_all
-CurrentConcernArea.delete_all
-CurrentNaturalGuild.delete_all
+CurrentContext.delete_all
+CurrentCategoryChild.delete_all
+CurrentCategory.delete_all
 CurrentNetworkMode.delete_all
 
 Conversation.delete_all
 AggregateProfileDetail.all.each { |d| d.children = [] }
 AggregateProfileDetail.delete_all
 
-Location.delete_all
-ConcernArea.delete_all
-NaturalGuild.delete_all
+Context.delete_all
+Category.delete_all
 
 User.delete_all
 PasswordCredentialDatum.delete_all
@@ -32,7 +31,7 @@ NetworkMode.delete_all
 ProfileMode.create
 ConversationMode.create
 
-natural_guilds = {
+categories = {
   'Education': [
     'Education',
     'Immunity',
@@ -71,10 +70,10 @@ natural_guilds = {
   'Sentient Machine': []
 }
 
-NaturalGuild.create natural_guilds.map{ |g, cs| { name: g, concern_areas: ConcernArea.create(cs.map{ |c| { name: c } }) } }
+Category.create categories.map{ |g, cs| { name: g, children: Category.create(cs.map{ |c| { name: c } }) } }
 
 locations = ["Embassy", "Great Bonfire", "Crystal Gardens", "Field Research Lab"]
-Location.create locations.map{ |l| { name: l } }
+Context.create locations.map{ |l| { name: l } }
 
 # profile_data = (1..12).map{|v| [ Faker::Company.name, Faker::Internet.email ]}
 # profile_data = profile_data.map{|k, v| { name_model_attributes: { name: k }, email_model_attributes: { email: v } } }

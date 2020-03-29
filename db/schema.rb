@@ -70,6 +70,15 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
     t.index ["name_model_id"], name: "index_basic_profile_details_on_name_model_id"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name", "parent_id"], name: "index_categories_on_name_and_parent_id", unique: true
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
+  end
+
   create_table "child_profiles_parent_profiles", force: :cascade do |t|
     t.bigint "parent_profile_id", null: false
     t.bigint "child_profile_id", null: false
@@ -77,13 +86,11 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
     t.index ["parent_profile_id"], name: "index_child_profiles_parent_profiles_on_parent_profile_id"
   end
 
-  create_table "concern_areas", force: :cascade do |t|
-    t.bigint "natural_guild_id", null: false
+  create_table "contexts", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_concern_areas_on_name", unique: true
-    t.index ["natural_guild_id"], name: "index_concern_areas_on_natural_guild_id"
+    t.index ["name"], name: "index_contexts_on_name", unique: true
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -107,15 +114,33 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
     t.index ["profile_id"], name: "index_credentials_on_profile_id"
   end
 
-  create_table "current_concern_areas", force: :cascade do |t|
-    t.bigint "concern_area_id", null: false
+  create_table "current_categories", force: :cascade do |t|
+    t.bigint "category_id", null: false
     t.bigint "profile_id", null: false
-    t.bigint "natural_guild_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["concern_area_id"], name: "index_current_concern_areas_on_concern_area_id"
-    t.index ["natural_guild_id"], name: "index_current_concern_areas_on_natural_guild_id"
-    t.index ["profile_id"], name: "index_current_concern_areas_on_profile_id"
+    t.index ["category_id"], name: "index_current_categories_on_category_id"
+    t.index ["profile_id"], name: "index_current_categories_on_profile_id"
+  end
+
+  create_table "current_category_children", force: :cascade do |t|
+    t.bigint "parent_id", null: false
+    t.bigint "category_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_current_category_children_on_category_id"
+    t.index ["parent_id"], name: "index_current_category_children_on_parent_id"
+    t.index ["profile_id"], name: "index_current_category_children_on_profile_id"
+  end
+
+  create_table "current_contexts", force: :cascade do |t|
+    t.bigint "context_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["context_id"], name: "index_current_contexts_on_context_id"
+    t.index ["profile_id"], name: "index_current_contexts_on_profile_id"
   end
 
   create_table "current_conversations", force: :cascade do |t|
@@ -125,24 +150,6 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["conversation_id"], name: "index_current_conversations_on_conversation_id"
     t.index ["profile_id"], name: "index_current_conversations_on_profile_id"
-  end
-
-  create_table "current_locations", force: :cascade do |t|
-    t.bigint "location_id", null: false
-    t.bigint "profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["location_id"], name: "index_current_locations_on_location_id"
-    t.index ["profile_id"], name: "index_current_locations_on_profile_id"
-  end
-
-  create_table "current_natural_guilds", force: :cascade do |t|
-    t.bigint "natural_guild_id", null: false
-    t.bigint "profile_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["natural_guild_id"], name: "index_current_natural_guilds_on_natural_guild_id"
-    t.index ["profile_id"], name: "index_current_natural_guilds_on_profile_id"
   end
 
   create_table "current_network_modes", force: :cascade do |t|
@@ -176,13 +183,6 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
     t.index ["human_id"], name: "index_human_details_on_human_id"
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_locations_on_name", unique: true
-  end
-
   create_table "messages", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -194,13 +194,6 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "natural_guilds", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["name"], name: "index_natural_guilds_on_name", unique: true
   end
 
   create_table "network_modes", force: :cascade do |t|
@@ -245,20 +238,20 @@ ActiveRecord::Schema.define(version: 2020_03_28_170114) do
   add_foreign_key "basic_profile_details", "emails", column: "email_model_id"
   add_foreign_key "basic_profile_details", "names", column: "name_model_id"
   add_foreign_key "basic_profile_details", "profiles", column: "basic_profile_id"
+  add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "child_profiles_parent_profiles", "aggregate_profile_details", column: "parent_profile_id"
   add_foreign_key "child_profiles_parent_profiles", "profiles", column: "child_profile_id"
-  add_foreign_key "concern_areas", "natural_guilds"
   add_foreign_key "conversations", "profiles", column: "aggregate_profile_id"
   add_foreign_key "credentials", "profiles"
-  add_foreign_key "current_concern_areas", "concern_areas"
-  add_foreign_key "current_concern_areas", "natural_guilds"
-  add_foreign_key "current_concern_areas", "profiles"
+  add_foreign_key "current_categories", "categories"
+  add_foreign_key "current_categories", "profiles"
+  add_foreign_key "current_category_children", "categories"
+  add_foreign_key "current_category_children", "categories", column: "parent_id"
+  add_foreign_key "current_category_children", "profiles"
+  add_foreign_key "current_contexts", "contexts"
+  add_foreign_key "current_contexts", "profiles"
   add_foreign_key "current_conversations", "conversations"
   add_foreign_key "current_conversations", "profiles"
-  add_foreign_key "current_locations", "locations"
-  add_foreign_key "current_locations", "profiles"
-  add_foreign_key "current_natural_guilds", "natural_guilds"
-  add_foreign_key "current_natural_guilds", "profiles"
   add_foreign_key "current_network_modes", "network_modes"
   add_foreign_key "current_network_modes", "profiles"
   add_foreign_key "current_profiles", "profiles"

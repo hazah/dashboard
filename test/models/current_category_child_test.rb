@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CurrentCategoryTest < ActiveSupport::TestCase
+class CurrentCategoryChildTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

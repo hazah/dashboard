@@ -3,8 +3,8 @@ document.getElementById("dashboard").
     new CustomEvent(
       "component:refresh", {
         detail: {
-          target: "concernArea",
-          data: "<%= j current_concern_areas_select %>"
+          target: "categoryChild",
+          data: "<%= j current_category_children_select %>"
         }
       }
     )

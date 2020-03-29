@@ -10,7 +10,7 @@ export default class extends Controller {
     "messages",
     "newMessage", 
     "context", 
-    "concernArea"
+    "categoryChild"
   ];
 
   refresh(event) {
