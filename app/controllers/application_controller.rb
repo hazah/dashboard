@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action { cookies.encrypted[:visit] ||= Digest::SHA1.hexdigest([Time.now, rand].join) }
   before_action :authenticate!
 
   before_action if: :current_user? do
@@ -98,7 +99,7 @@ private
         @messages = @messages.where(conversations: { id: @conversations.map(&:id) })
       end
     end
-    @messages = @messages.distinct.order(created_at: :desc).limit(30).reverse
+    @messages = @messages.distinct.includes(:rich_text_raw_content).order(created_at: :desc).limit(30).reverse
   end
   
   def current_user
@@ -109,7 +110,6 @@ private
           user.update expires_at: auth.session_timeout.minutes.from_now
         else
           session.delete :current_user_id
-          cookies.delete :user_id
         end
         user
       end

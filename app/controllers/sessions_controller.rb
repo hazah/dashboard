@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   before_action if: :current_user?, except: :destroy do
-    redirect_to root_path
+    SessionPingJob.perform_later current_user
+    respond_to do |format|
+      format.js   { head :ok }
+      format.html { redirect_to root_path }
+    end
   end
 
   def new
@@ -16,16 +20,15 @@ class SessionsController < ApplicationController
     if @credential
       user = User.create credential: @credential, expires_at: auth.session_timeout.minutes.from_now
       session[:current_user_id] = user.id
-      cookies.encrypted[:user_id] = user.id
+      ActionCable.server.remote_connections.where(visit: cookies.encrypted[:visit]).disconnect
       redirect_to root_path
     end
   end
 
   def destroy
     current_user.update expires_at: Time.now
-    current_user = nil
     session.delete :current_user_id
-    cookies.delete :user_id
+    ActionCable.server.remote_connections.where(visit: cookies.encrypted[:visit]).disconnect
     redirect_to [:new, :session]
   end
 

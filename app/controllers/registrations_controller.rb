@@ -1,7 +1,7 @@
 class RegistrationsController < ApplicationController
-  # before_action if: :current_user?, only: :new do
-  #   redirect_to root_path
-  # end
+  before_action if: :current_user?, only: :new do
+    redirect_to root_path
+  end
 
   def new
     @credential = PasswordCredential.new
@@ -22,7 +22,7 @@ class RegistrationsController < ApplicationController
     if @credential.save
       user = User.create credential: @credential, expires_at: auth.session_timeout.minutes.from_now
       session[:current_user_id] = user.id
-      cookies.encrypted[:user_id] = user.id
+      ActionCable.server.remote_connections.where(visit: cookies.encrypted[:visit]).disconnect
       redirect_to root_path
     end
   end

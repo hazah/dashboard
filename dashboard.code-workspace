@@ -25,6 +25,12 @@
 			"path": "./app/models"
 		},
 		{
+			"path": "./app/channels"
+		},
+		{
+			"path": "./app/jobs"
+		},
+		{
 			"path": "./app"
 		},
 		{

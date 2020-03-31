@@ -10,6 +10,7 @@ module ApplicationHelper
       id: application_id,
       class: application_class,
       data: {
+        target: "component.application",
         controller: :component,
         action: "component:refresh->component#refresh"
       }

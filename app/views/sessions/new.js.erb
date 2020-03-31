@@ -1,0 +1,11 @@
+document.getElementById("dashboard").
+  dispatchEvent(
+    new CustomEvent(
+      "component:refresh", {
+        detail: {
+          target: "application",
+          data: "<%= j render template: "sessions/new.html" %>"
+        }
+      }
+    )
+  );
